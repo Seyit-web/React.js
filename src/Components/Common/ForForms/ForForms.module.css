@@ -1,0 +1,15 @@
+
+.forForm {
+    display: flex;
+}
+
+.forForm.error input,
+.forForm.error textarea {
+    border: 1px solid red;
+}
+
+.forForm.error span {
+    margin-left: 15px;
+    color: red;
+    font-weight: 700;
+}

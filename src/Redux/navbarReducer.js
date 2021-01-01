@@ -1,6 +1,5 @@
 
 const ADD_FRIEND = 'ADD_FRIEND';
-const UPDATE_NEW_SEARCH_FRIEND = 'UPDATE_NEW_SEARCH_FRIEND';
 
 let initialState =  {
     friendsContent: [
@@ -8,9 +7,7 @@ let initialState =  {
         {id: 2, name: 'Mark', status: 'offline'},
         {id: 3, name: 'Bill', status: 'online'},
         {id: 4, name: 'Brain', status: 'deleted'}
-    ],
-
-    newSearchResult: ''
+    ]
 };
 
 const navbarReducer = (state = initialState, action) => {
@@ -18,29 +15,13 @@ const navbarReducer = (state = initialState, action) => {
         case ADD_FRIEND: 
             return {
                 ...state,
-                friendsContent: [...state.friendsContent, {id: 5, name: state.newSearchResult, status: state.newSearchResult}],
-                newSearchResult: ''
-            }
-        case UPDATE_NEW_SEARCH_FRIEND:
-            return {
-                ...state,
-                newSearchResult: action.newFriendFromUi
+                friendsContent: [...state.friendsContent, {id: 5, name: action.newSearchFriend, status: action.newSearchFriend}]
             }
         default:
             return state;
     }
 }
 
-export const addFriend = () => {
-    return {
-        type: 'ADD_FRIEND'
-    }
-}
-
-export const updateNewSearchFriend = (newFriendFromUi) => {
-    return {
-        type: 'UPDATE_NEW_SEARCH_FRIEND', newFriendFromUi: newFriendFromUi
-    }
-}
+export const addFriend = (newSearchFriend) => ({ type: 'ADD_FRIEND', newSearchFriend })
 
 export default navbarReducer;

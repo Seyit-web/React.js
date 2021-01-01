@@ -1,6 +1,5 @@
 
 const ADD_SEND = 'ADD_SEND';
-const UPDATE_NEW_SEND_MESSAGE = 'UPDATE_NEW_SEND_MESSAGE';
 
 let initialState =  {
     messages: [
@@ -16,10 +15,8 @@ let initialState =  {
         {id: 4, name: 'Bill'},
         {id: 5, name: 'Mark'},
         {id: 6, name: 'Peter'}
-    ],
-
-    newSendResult: ''
-};
+    ]
+}
 
 const dialogsReducer = (state = initialState, action) => {
 
@@ -27,29 +24,13 @@ const dialogsReducer = (state = initialState, action) => {
         case ADD_SEND: 
             return {
                 ...state,
-                messages: [...state.messages, {id: 5, sms: state.newSendResult}],
-                newSendResult: ''
-            };
-        case UPDATE_NEW_SEND_MESSAGE:
-            return {
-                ...state,
-                newSendResult: action.newMessageFromUi
-            };
+                messages: [...state.messages, {id: 5, sms: action.newMessageText}]
+            }
         default:
             return state;
     }
 }
 
-export const addSend = () => {
-    return {
-        type: 'ADD_SEND'
-    }
-}
-
-export const updateNewSendMessage = (newMessageFromUi) => {
-    return {
-        type: 'UPDATE_NEW_SEND_MESSAGE', newMessageFromUi: newMessageFromUi
-    }
-}
+export const addSend = (newMessageText) => ({ type: 'ADD_SEND', newMessageText })
 
 export default dialogsReducer;

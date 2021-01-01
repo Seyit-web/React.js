@@ -2,23 +2,16 @@
 import React from 'react';
 import d from './Messages.module.css';
 import Sms from './Sms/Sms';
-import btnSend from './icons/send-button.svg';
 import btnClip from './icons/paperclip.svg';
 import btnSmile from './icons/smile.svg';
+import { MessagesFormRedux } from './MessagesForm';
 
 const Messages = (props) => {    
 
     let messagesElement = props.messages.map( m =>  <Sms sms={m.sms} key={m.id} /> );
     
-    let newSendElement = React.createRef();
-
-    let addSend = () => {
-        props.addSend();
-    }
-    
-    let sendMessage = () => {        
-        let newMessageFromUi = newSendElement.current.value;
-        props.updateNewSendMessage(newMessageFromUi);
+    let addNewSend = (values) => {
+        props.addSend(values.newMessageText)
     }
 
     return (
@@ -34,12 +27,10 @@ const Messages = (props) => {
                 <a className={d.btnClip} href="#">
                     <img width={20} src={btnClip} alt=""/>
                 </a>
-                <textarea className={d.forSend} name="chat" placeholder="Type a message"  ref={newSendElement} value={props.newSendResult} onChange={sendMessage} />
-                <button className={d.btn} onClick={ addSend }>
-                    <img width={20} src={btnSend} alt=""/>
-                </button>
+                <MessagesFormRedux onSubmit={addNewSend} />
             </div>
         </div>
     )
 }
+
 export default Messages;
