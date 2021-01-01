@@ -1,0 +1,108 @@
+.navbar {
+    display: block;
+    width: 100%;
+    max-width: 30%;
+    height: 630px;
+    background: aqua;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.navbar::-webkit-scrollbar {
+    width:0px;
+}
+
+.navbar__intro {
+    padding: 0 30px;
+}
+.navbar__settings a {
+    display: block;
+    color: #000;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.navbar__settings .active {
+    color: gold;
+}
+.navbar__settings a:last-child {
+    margin-bottom: 0;
+}
+
+.friends {
+    display: block;
+    width: auto;
+    height: auto;
+    margin-top: 60px;
+    padding: 0 20px;
+}
+
+.fTitle {
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.fContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    height: auto;
+}
+
+.search {
+    width: 100%;
+    height: auto;
+    max-width: 240px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+.forText {
+    display: flex;
+    width: 100%;
+    max-width: 220px;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.2;
+    border: 1px solid #707070;
+    border-radius: 100px;
+    background-color: rgba(255, 255, 255, 0.5);
+    transition: border-color .2s linear;
+    color: #2B2A2C;
+    resize: none;
+}
+
+.forText:focus {
+    border-color: #000;
+    outline: none;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 130px;
+    height: auto;
+    padding: 5px 10px;
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 700;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid #707070;
+    border-radius: 100px;
+    color: #2B2A2C;
+    margin-left: auto;
+}
+
+.btn:focus {
+    border-color: #000;
+    outline: none;
+}

@@ -1,0 +1,22 @@
+
+.navHeader {
+    width: 100%;
+    height: auto;
+    background-color: #F0F0F0;
+}
+
+.navHeaderIntro {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 15px;
+}
+
+.navHeaderInner {
+    display: flex;
+    align-items: center;
+}
+
+.navHeaderItem {
+    margin-left: 30px;;
+}

@@ -1,0 +1,82 @@
+
+.messages {
+    width: 100%;
+    max-width: 70%;
+    height: 630px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    background-image: url('../../Profile/img/mainBg.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.messages::-webkit-scrollbar {
+    width:0px;
+}
+
+.mIntro {
+    padding: 20px 20px 0 20px;
+}
+
+.chat {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 100;
+    width: 100%;
+    height: auto;
+    max-width: 69%;
+    margin: 0 auto;
+    padding: 5px;
+    background-color: #F0F0F0;
+}
+
+.forSend {
+    display: flex;
+    width: 100%;
+    padding: 5px 10px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.2;
+    border: 1px solid #707070;
+    border-radius: 100px;
+    background-color: rgba(255, 255, 255, 0.5);
+    transition: border-color .2s linear;
+    color: #2B2A2C;
+    resize: none;
+}
+
+.forSend:focus {
+    border-color: aqua;
+    outline: none;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px 5px 10px;
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 700;
+    background-color: inherit;
+    border: 0;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.btn:focus {
+    outline: none;
+}
+
+.btnSmile {
+    padding: 5px 0 5px 5px;
+}
+
+.btnClip {
+    padding: 5px 10px 5px 10px;
+}

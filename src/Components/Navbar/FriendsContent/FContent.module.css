@@ -1,0 +1,14 @@
+
+.fPhoto {
+    text-align: center;
+    margin: 0 20px 20px 20px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.fPhoto img {
+    width: 100%;
+    max-width: 50px;
+    height: auto;
+    border-radius: 50%;
+}

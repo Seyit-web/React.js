@@ -1,0 +1,38 @@
+
+.mainPost {
+    display: flex;
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 210px;
+    height: auto;
+}
+.photoPost {
+    margin-right: 20px;
+}
+.photoPost img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.posts {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow-x: hidden;
+}
+.post {
+    display: inline-block;
+    color: #000;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.likes {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.likes a {
+    width: 15px;
+}

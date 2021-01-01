@@ -1,0 +1,19 @@
+
+.userProfile {
+    display: block;
+    width: 100%;
+    height: 610px;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.userProfile::-webkit-scrollbar {
+    width:0px;
+}
+
+.userPhoto img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}

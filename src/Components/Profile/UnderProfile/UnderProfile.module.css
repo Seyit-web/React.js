@@ -1,0 +1,10 @@
+
+.profile__intro {
+    width: 200px;
+    height: auto;
+}
+.profile__intro img {
+    width: 100%;
+    height: 200px;
+    border-radius: 50%;
+}

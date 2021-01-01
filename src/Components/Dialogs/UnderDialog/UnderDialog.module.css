@@ -1,0 +1,15 @@
+.dialog {
+    width: 100%;
+    max-width: 30%;
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.dialog::-webkit-scrollbar {
+    width:0px;
+}
+
+.dIntro {
+    padding: 20px;
+}
