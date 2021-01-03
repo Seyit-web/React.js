@@ -7,8 +7,8 @@ const UserProfile = (props) => {
 
     if (!props.profile) {
         return <Loader />
-    } 
-
+    }
+    
     return (
         <div className={uProf.userProfile}>
             <div className={uProf.userPhoto}>

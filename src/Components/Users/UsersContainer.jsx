@@ -1,15 +1,23 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import { follow, unfollow, getUsers, getUsers2 } from '../../Redux/usersReducer';
+import { follow, unfollow, requestUsers, getUsers2 } from '../../Redux/usersReducer';
 import Users from './Users';
 import { compose } from 'redux';
+import {
+    getUsersCreateSelector,
+    getPageSize,
+    getTotalUsersCount,
+    getCurrentPage,
+    getIsFetching,
+    getBtnFollow
+} from '../../Selectors/Selectors';
 
 class UsersContainer extends React.Component {
 
     componentDidMount() {
         // It is  THUNK
-        this.props.getUsers(this.props.currentPage, this.props.pageSize);
+        this.props.requestUsers(this.props.currentPage, this.props.pageSize);
     }
 
     onPageChanged = (pageNumber) => {
@@ -36,15 +44,26 @@ class UsersContainer extends React.Component {
     }
 }
 
+// let mapStateToProps = (state) => { 
+//     return {
+//         users: state.usersPage.users,
+//         pageSize: state.usersPage.pageSize,
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         btnFollow: state.usersPage.btnFollow
+//     }
+// }
+
 let mapStateToProps = (state) => { 
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        btnFollow: state.usersPage.btnFollow
+        users: getUsersCreateSelector(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        btnFollow: getBtnFollow(state)
     }
 }
 
-export default compose( connect(mapStateToProps, { follow, unfollow, getUsers, getUsers2 }) ) (UsersContainer);
+export default compose( connect(mapStateToProps, { follow, unfollow, requestUsers, getUsers2 }) ) (UsersContainer);

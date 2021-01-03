@@ -25,7 +25,6 @@ const Navbar = (props) => {
                     <NavLink to="/dialogs" className={j.setting}>Message</NavLink>
                     <NavLink to="/users" className={j.setting}>Users</NavLink>
                     <NavLink to="/userProfile" className={j.setting}>User profile</NavLink>
-                    <NavLink to="/login" className={j.setting}>Login</NavLink>
                     <NavLink to="/news" className={j.setting}>News</NavLink>
                     <NavLink to="/music" className={j.setting}>Music</NavLink>
                     <NavLink to="/settings" className={j.setting}>Settings</NavLink>

@@ -9,29 +9,48 @@ import {Route} from 'react-router-dom';
 import UserProfileContainer from './Components/UserProfile/UserProfileContainer';
 import HeaderContainer from './Components/Header/HeaderContainer';
 import Login from './Components/Login/Login';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { withRouter } from 'react-router-dom';
+import { initializeApp } from './Redux/appReducer';
+import Loader from './Components/Common/Loader/Loader';
 
-const App = (props) => {
-    return (
-        <div className="main">
-            <HeaderContainer />
-            <div className="base">                
-                <NavbarContainer />
-                
-                <Route path='/dialogs' render={ () => <Dialogs store={props.store} /> } />
+class App extends React.Component {
 
-                <Route path='/profile' render={ () => <Profile /> } />
+    componentDidMount() {
+        // It is  THUNK
+        this.props.initializeApp();
+    }
 
-                <Route path='/users' render={ () => <UsersContainer /> } />
+    render() {
 
-                <Route path='/userProfile/:userId?' render={ () => <UserProfileContainer /> } />
-                
-                <Route path='/login' render={ () => <Login /> } />
+        if (!this.props.initialized) {
+            return <Loader />
+        }
+
+        return (
+            <div className="main">
+                <HeaderContainer />
+                <div className="base">                
+                    <NavbarContainer />
+                    
+                    <Route path='/dialogs' render={ () => <Dialogs store={this.props.store} /> } />
+    
+                    <Route path='/profile' render={ () => <Profile /> } />
+    
+                    <Route path='/users' render={ () => <UsersContainer /> } />
+    
+                    <Route path='/userProfile/:userId?' render={ () => <UserProfileContainer /> } />
+                    
+                    <Route path='/login' render={ () => <Login /> } />
+                </div>
             </div>
-        </div>
-  )
+      )
+    }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+    initialized: state.app.initialized
+})
 
-// Если не можете попасть в Progile, Messages, Users или UserProfile
-// пожалуйста сначало залогинтесь, или же уберите из кода 
+export default compose(connect(mapStateToProps, {initializeApp}), withRouter) (App) 

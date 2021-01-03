@@ -90,11 +90,12 @@ export const setToggleIsFetching = (isFetching) => ({ type: 'TOGGLE_IS_FETCHING'
 export const setBtnFollow = (isFetching, userId) => ({ type: 'BNT_FOLLOW', isFetching: isFetching, userId: userId })
 
 
-export const getUsers = ( currentPage, pageSize) =>{
+export const requestUsers = ( currentPage, pageSize) =>{
 
+    // It is  THUNK
     return (dispatch) => {
         dispatch(setToggleIsFetching(true));
-        userAPI.getUsers(currentPage, pageSize).then(data => {
+        userAPI.getUsersFromApi(currentPage, pageSize).then(data => {
             dispatch(setToggleIsFetching(false));
             dispatch(setUsers(data.items));            
             dispatch(setTotalUsersCount(data.totalCount));            
@@ -105,19 +106,21 @@ export const getUsers = ( currentPage, pageSize) =>{
 
 export const getUsers2 = (pageNumber, pageSize) =>{
 
+    // It is  THUNK
     return (dispatch) => {
         dispatch(setCurrentPage(pageNumber));
         dispatch(setToggleIsFetching(true));
-        userAPI.getUsers(pageNumber, pageSize).then(data => { 
+        userAPI.getUsersFromApi(pageNumber, pageSize).then(data => { 
             dispatch(setToggleIsFetching(false));
             dispatch(setUsers(data.items)); 
-        } );
+        })
     }
 
 }
 
 export const follow = (userId) =>{
 
+    // It is  THUNK
     return (dispatch) => {
         dispatch(setBtnFollow(true, userId));
 
@@ -134,6 +137,7 @@ export const follow = (userId) =>{
 
 export const unfollow = (userId) =>{
 
+    // It is  THUNK
     return (dispatch) => {
         dispatch(setBtnFollow(true, userId));
 
