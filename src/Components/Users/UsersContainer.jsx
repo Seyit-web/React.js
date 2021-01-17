@@ -17,12 +17,14 @@ class UsersContainer extends React.Component {
 
     componentDidMount() {
         // It is  THUNK
-        this.props.requestUsers(this.props.currentPage, this.props.pageSize);
+        let {currentPage, pageSize} = this.props;
+        this.props.requestUsers(currentPage, pageSize);
     }
 
     onPageChanged = (pageNumber) => {
         // It is  THUNK
-        this.props.getUsers2(pageNumber, this.props.pageSize);
+        const {pageSize} = this.props;
+        this.props.getUsers2(pageNumber, pageSize);
     }
 
     render() {
@@ -40,20 +42,9 @@ class UsersContainer extends React.Component {
                 isFetching={this.props.isFetching}
                 btnFollow={this.props.btnFollow}
             />            
-        )
+        )   
     }
 }
-
-// let mapStateToProps = (state) => { 
-//     return {
-//         users: state.usersPage.users,
-//         pageSize: state.usersPage.pageSize,
-//         totalUsersCount: state.usersPage.totalUsersCount,
-//         currentPage: state.usersPage.currentPage,
-//         isFetching: state.usersPage.isFetching,
-//         btnFollow: state.usersPage.btnFollow
-//     }
-// }
 
 let mapStateToProps = (state) => { 
     return {

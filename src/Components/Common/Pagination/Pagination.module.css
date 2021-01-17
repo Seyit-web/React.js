@@ -1,0 +1,45 @@
+
+.paginator {
+    display: flex;
+    align-items: center;
+    margin: 20px;
+}
+
+.btn {
+    padding: 5px 10px;
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 700;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid #707070;
+    border-radius: 100px;
+    color: #2B2A2C;
+    transition: border .5s;
+    cursor: pointer;
+}
+
+.btn:focus {
+    outline: none;
+}
+
+.btn:hover {
+    border-color: aqua;
+}
+
+.number a {
+    margin: 0 2px;
+    border: 1px solid #000;
+    cursor: pointer;
+    padding: 3px 7px;
+    border-radius: 7px;
+}
+
+.bold {
+    font-weight: bold;
+    font-size: 20px;
+    background-color: aqua;
+}
+
+.number a:hover:not(.bold) {
+    background-color: #ddd;
+}

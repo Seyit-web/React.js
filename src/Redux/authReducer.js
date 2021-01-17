@@ -24,47 +24,46 @@ const authReducer = (state = initialState, action) => {
     }
 }
 
-export const setAuthUserData = (id, email, login, isAuth) => ({  type: 'SET_USER_DATA', data: {id, email, login, isAuth} })
+export const setAuthUserData = (id, email, login, isAuth) => ({  type: 'SET_USER_DATA', data: {id, email, login, isAuth} });
 
 
 export const getLogin = () =>{
     // It is  THUNK
-    return (dispatch) => {
+    return async (dispatch) => {
 
-        return  headerAPI.forLogin().then(response => {
-                    if (response.data.resultCode === 0) {
-                        let {id, email, login} = response.data.data;
-                        dispatch(setAuthUserData(id, email, login, true));
-                    }
-                })
+        let response = await headerAPI.forLogin();
+
+            if (response.data.resultCode === 0) {
+                let {id, email, login} = response.data.data;
+                dispatch(setAuthUserData(id, email, login, true));
+            }
     }
 }
 
 
 export const logIn = (email, password, rememberMe) =>{
     // It is  THUNK
-    return (dispatch) => {
+    return async (dispatch) => {
 
-        headerAPI.logIn(email, password, rememberMe).then(response => {
+        let response = await headerAPI.logIn(email, password, rememberMe);
+
             if (response.data.resultCode === 0) {
                 dispatch(setAuthUserData());
             } else {
                 let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error';
                 dispatch(stopSubmit('login', {_error: message}));
             }
-        })
     }
 }
 
 export const logOut = () =>{
     // It is  THUNK
-    return (dispatch) => {
+    return async (dispatch) => {
 
-        headerAPI.logOut().then(response => {
+        let response = await headerAPI.logOut();
             if (response.data.resultCode === 0) {
                 dispatch(setAuthUserData(null, null, null, false));
             }
-        })
     }
 }
 

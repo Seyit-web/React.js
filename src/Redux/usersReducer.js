@@ -1,8 +1,9 @@
 
 import { userAPI } from '../DAL/Api';
+import { forUserReducer } from '../Components/Common/Helper/Helper';
 
-const FOLLOW_SUCCESS = 'FOLLOW_SUCCESS';
-const UNFOLLOW_SUCCESS = 'UNFOLLOW_SUCCESS';
+const FOLLOW = 'FOLLOW';
+const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
@@ -28,25 +29,15 @@ let initialState = {
 const usersReducer = (state = initialState, action) => {
 
     switch(action.type) {
-        case FOLLOW_SUCCESS:
+        case FOLLOW:
             return {
                 ...state,
-                users: state.users.map( u => {
-                    if (u.id === action.userId) {
-                        return {...u, followed: true}
-                    }
-                    return u;
-                })
+                users: forUserReducer( state.users, 'id', action.userId, {followed: true})
             }
-        case UNFOLLOW_SUCCESS:
+        case UNFOLLOW:
             return {
                 ...state,
-                users: state.users.map( u => {
-                    if (u.id === action.userId) {
-                        return {...u, followed: false}
-                    }
-                    return u;
-                })
+                users: forUserReducer( state.users, 'id', action.userId, {followed: false})
             }
         case SET_USERS: {
             return { ...state, users: action.users }
@@ -75,9 +66,9 @@ const usersReducer = (state = initialState, action) => {
     }
 }
 
-export const followSuccess = (userId) => ({ type: 'FOLLOW_SUCCESS', userId })
+export const followSuccess = (userId) => ({ type: 'FOLLOW', userId })
 
-export const unfollowSuccess = (userId) => ({ type: 'UNFOLLOW_SUCCESS', userId })
+export const unfollowSuccess = (userId) => ({ type: 'UNFOLLOW', userId })
 
 export const setUsers = (users) => ({ type: 'SET_USERS', users })
 
@@ -85,72 +76,58 @@ export const setCurrentPage = (currentPage) => ({ type: 'SET_CURRENT_PAGE', curr
 
 export const setTotalUsersCount = (totalUsersCount) => ({ type: 'SET_TOTAL_USERS_COUNT', count: totalUsersCount })
 
-export const setToggleIsFetching = (isFetching) => ({ type: 'TOGGLE_IS_FETCHING', isFetching: isFetching })
+export const setToggleIsFetching = (isFetching) => ({ type: 'TOGGLE_IS_FETCHING', isFetching })
 
-export const setBtnFollow = (isFetching, userId) => ({ type: 'BNT_FOLLOW', isFetching: isFetching, userId: userId })
+export const setBtnFollow = (isFetching, userId) => ({ type: 'BNT_FOLLOW', isFetching, userId })
 
 
-export const requestUsers = ( currentPage, pageSize) =>{
-
+export const requestUsers = (currentPage, pageSize) =>{
     // It is  THUNK
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(setToggleIsFetching(true));
-        userAPI.getUsersFromApi(currentPage, pageSize).then(data => {
+        let data = await userAPI.getUsersFromApi(currentPage, pageSize);
+
             dispatch(setToggleIsFetching(false));
             dispatch(setUsers(data.items));            
             dispatch(setTotalUsersCount(data.totalCount));            
-        })
     }
-
 }
 
 export const getUsers2 = (pageNumber, pageSize) =>{
-
     // It is  THUNK
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(setCurrentPage(pageNumber));
         dispatch(setToggleIsFetching(true));
-        userAPI.getUsersFromApi(pageNumber, pageSize).then(data => { 
+        let data = await userAPI.getUsersFromApi(pageNumber, pageSize);
+
             dispatch(setToggleIsFetching(false));
             dispatch(setUsers(data.items)); 
-        })
     }
+}
 
+
+
+const followUnfollow = async (dispatch, userId, apiMethod, actionCreator) => {
+
+    dispatch(setBtnFollow(true, userId));
+    let response = await apiMethod(userId);
+        if (response.data.resultCode === 0) {
+            dispatch(actionCreator(userId));
+        }
+        dispatch(setBtnFollow(false, userId));
 }
 
 export const follow = (userId) =>{
-
     // It is  THUNK
-    return (dispatch) => {
-        dispatch(setBtnFollow(true, userId));
-
-        userAPI.follow(userId)
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(followSuccess(userId));
-            }
-            dispatch(setBtnFollow(false, userId));
-        })
+    return async (dispatch) => {
+        followUnfollow(dispatch, userId, userAPI.follow.bind(userAPI), followSuccess);
     }
-
 }
-
 export const unfollow = (userId) =>{
-
     // It is  THUNK
-    return (dispatch) => {
-        dispatch(setBtnFollow(true, userId));
-
-        userAPI.unfollow(userId)
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(unfollowSuccess(userId));
-            }
-            dispatch(setBtnFollow(false, userId));
-        })
+    return async (dispatch) => {
+        followUnfollow(dispatch, userId, userAPI.unfollow.bind(userAPI), unfollowSuccess);
     }
-
 }
-
 
 export default usersReducer;

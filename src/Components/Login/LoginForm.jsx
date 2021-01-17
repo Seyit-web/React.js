@@ -1,25 +1,21 @@
 
 import React from 'react';
 import l from './Login.module.css';
-import { Field, reduxForm } from 'redux-form'
-import { Input } from '../Common/ForForms/ForForms';
+import { reduxForm } from 'redux-form'
+import { Input, createField } from '../Common/ForForms/ForForms';
 import { required } from '../Common/Validation/Validation';
 
-const LoginForm = (props) => {
+const LoginForm = (handleSubmit, error) => {
 
     return (
-        <form onSubmit={props.handleSubmit} >
-            <div>
-                <Field name='email' className={l.email} placeholder='Email' component={Input} validate={[ required ]} />   
-            </div>
-            <div>
-                <Field name='password' className={l.password} placeholder='Password' type='password' component={Input} validate={[ required ]} /> 
-            </div>
+        <form onSubmit={handleSubmit} >
+                { createField('email', 'Email', Input, [required]) }
+                { createField('password', 'Password', Input, [required], {type: 'password'}) }
             
-            { props.error && <div className={l.someError}>{props.error}</div> }
+            { error && <div className={l.someError}>{error}</div> }
 
             <div className={l.forRememverMe}>
-                <Field name='rememberMe' className={l.rememverMe} type='checkbox' component='input' /> remeber me
+                { createField('rememberMe', 'null', Input, [], {type: 'checkbox'}, 'remeber me') }
             </div>
             <div>
                 <button className={l.btn}>Log in</button>

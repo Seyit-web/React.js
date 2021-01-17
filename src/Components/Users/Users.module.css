@@ -61,12 +61,3 @@
     height: auto;
     border-radius: 50%;
 }
-
-.number {
-    cursor: pointer;
-}
-
-.bold {
-    font-weight: bold;
-    font-size: 20px;
-}

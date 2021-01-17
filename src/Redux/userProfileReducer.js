@@ -24,13 +24,12 @@ export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile })
 
 
 export const setUser = (userId) =>{
-    
     // It is  THUNK
-    return (dispatch) => {
-
-        userProfAPI.setProfUser(userId).then(response => {
+    return async (dispatch) => {
+        
+        let response = await userProfAPI.setProfUser(userId);
+        
             dispatch(setUserProfile(response.data));            
-         })
     }
 
 }
