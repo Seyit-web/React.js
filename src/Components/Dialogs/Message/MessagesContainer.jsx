@@ -2,7 +2,6 @@
 import {addSend} from '../../../Redux/dialogsReducer';
 import Messages from './Messages';
 import {connect} from 'react-redux';
-import { withRedirectComponent } from '../../../HOC/withRedirectComponent';
 import { compose } from 'redux';
 
 
@@ -12,4 +11,4 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default compose( connect(mapStateToProps, { addSend }), withRedirectComponent ) (Messages);
+export default compose( connect(mapStateToProps, { addSend }) ) (Messages);

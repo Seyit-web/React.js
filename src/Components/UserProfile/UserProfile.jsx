@@ -1,7 +1,8 @@
 
 import React from 'react'
 import Loader from '../Common/Loader/Loader';
-import uProf from './UserProfile.module.css'
+import uProf from './UserProfile.module.css';
+import bg from '../Profile/Ava/img/ava.jpg';
 
 const UserProfile = (props) => {
 
@@ -12,7 +13,7 @@ const UserProfile = (props) => {
     return (
         <div className={uProf.userProfile}>
             <div className={uProf.userPhoto}>
-                <img src={props.profile.photos.large} alt=""/>
+                <img src={props.profile.photos.large || bg} alt=""/>
             </div>
             <div className={uProf.descr}>
                 <p>{props.profile.aboutMe}</p>
