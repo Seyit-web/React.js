@@ -5,6 +5,7 @@ import Sms from './Sms/Sms';
 import btnClip from './icons/paperclip.svg';
 import btnSmile from './icons/smile.svg';
 import { MessagesFormRedux } from './MessagesForm';
+import Loader from '../../Common/Loader/Loader';
 
 const Messages = (props) => {    
 

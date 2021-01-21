@@ -1,8 +1,7 @@
 
 import React, {useState} from 'react';
-import p from './Profile.module.css';
 
-const ProfileStatus = (props) => {
+const UserProfileStatus = (props) => {
 
 
     let [ editMode, setEditMode ] = useState(false);
@@ -24,16 +23,16 @@ const ProfileStatus = (props) => {
         <div>
             { !editMode &&
             <div>
-                <span onDoubleClick={activateEditMode} >Hello</span>
+                <span onDoubleClick={activateEditMode} ><b>Hello</b></span>
             </div>
             }
 
             { editMode && 
             <div>
-                <input onChange={ onStatusChange } autoFocus={true} onBlur={ deActivateEditMode } className={p.field} value={status} />
+                <input onChange={ onStatusChange } autoFocus={true} onBlur={ deActivateEditMode } value={status} />
             </div>
             }
         </div>
     )
 }
-export default ProfileStatus;
+export default UserProfileStatus;

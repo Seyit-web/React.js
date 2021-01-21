@@ -1,34 +1,40 @@
 
-import React from 'react'
+import React, {useState} from 'react'
 import Loader from '../Common/Loader/Loader';
 import uProf from './UserProfile.module.css';
 import bg from '../Profile/Ava/img/ava.jpg';
+import { UserProfileReduxFormEdit } from './UserProfileEdit/UserProfileEdit';
+import { UserProfileReduxFormSave } from './UserProfileSave/UserProfileSave';
+import UserProfileStatus from './UserProfileStatus';
+
 
 const UserProfile = (props) => {
 
+    let [ editMode, setEditMode ] = useState(false);
+
     if (!props.profile) {
         return <Loader />
+    }
+
+    const onSubmit = (formData) => {
+        props.profileFormDataSave(formData);
+        setEditMode(false);
     }
     
     return (
         <div className={uProf.userProfile}>
             <div className={uProf.userPhoto}>
                 <img src={props.profile.photos.large || bg} alt=""/>
+                <div>
+                    <UserProfileStatus />
+                </div>
             </div>
-            <div className={uProf.descr}>
-                <p>{props.profile.aboutMe}</p>
-                <p>{props.profile.contacts.facebook}</p>
-                <p>{props.profile.contacts.website}</p>
-                <p>{props.profile.contacts.vk}</p>
-                <p>{props.profile.contacts.twitter}</p>
-                <p>{props.profile.contacts.instagram}</p>
-                <p>{props.profile.contacts.youtube}</p>
-                <p>{props.profile.contacts.github}</p>
-                <p>{props.profile.contacts.mainLink}</p>
-                <p>{props.profile.lookingForAJob}</p>
-                <p>{props.profile.lookingForAJobDescription}</p>
-                <p>{props.profile.fullName}</p>
-            </div>
+
+            { editMode 
+            ? <UserProfileReduxFormSave profile={props.profile} onSubmit={onSubmit} initialValues={props.profile} /> 
+            : <UserProfileReduxFormEdit profile={props.profile} isOwner={props.isOwner} activedEditMode={ () => {setEditMode(true)} } /> 
+            }
+
         </div>
     )
 }

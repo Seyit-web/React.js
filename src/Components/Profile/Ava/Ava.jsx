@@ -7,7 +7,6 @@ const Ava = () => {
             <p>Seitkhan</p>
             <p>Balikbaev</p>
             <p>20.07.1995</p>
-            
         </div>
     )
 }

@@ -31,7 +31,19 @@ export const setUser = (userId) =>{
         
             dispatch(setUserProfile(response.data));            
     }
-
 }
+
+export const profileFormDataSave = (formData) =>{
+    // It is  THUNK
+    return async (dispatch, getState) => {
+        const userId = getState().auth.userId;
+        let response = await userProfAPI.setProfileData(formData);
+
+        if (response.data.resultCode === 0) {
+            dispatch(setUserProfile(userId));            
+        }
+    }
+}
+
 
 export default userProfileReducer;

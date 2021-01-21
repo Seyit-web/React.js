@@ -21,14 +21,8 @@ const User = (props) => {
                 </div>
             </div>
             <div className={us.userDescr}>
-                <div>
-                    <div>{user.name}</div>
-                    <div>{user.status}</div>
-                </div>
-                <div>
-                    <div>{'USA'}</div>
-                    <div>{'Los Angelos'}</div>
-                </div>
+                <div>{user.name}</div>
+                <div>{user.status}</div>
             </div>
         </div>
     )

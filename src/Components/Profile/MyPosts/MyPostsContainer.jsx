@@ -3,6 +3,7 @@ import {addPost} from '../../../Redux/profileReducer';
 import MyPosts from './MyPosts';
 import {connect} from 'react-redux';
 import { compose } from 'redux';
+import { withRedirectComponent } from '../../../HOC/withRedirectComponent';
 
 
 let mapStateToProps = (state) => {
@@ -11,4 +12,4 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default compose( connect(mapStateToProps, { addPost }) ) (MyPosts);
+export default compose( connect(mapStateToProps, { addPost }), withRedirectComponent ) (MyPosts);

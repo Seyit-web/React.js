@@ -19,7 +19,7 @@ export const withRedirectComponent = ( Component ) => {
         }
     }
 
-    let ConnectedRedirectComponent = connect(mapStateToPropsForRedirect) (RedirectComponent);
+    let ConnectedRedirectComponent = connect(mapStateToPropsForRedirect, null) (RedirectComponent);
 
     return ConnectedRedirectComponent;
 }

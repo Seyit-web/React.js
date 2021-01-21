@@ -30,6 +30,9 @@ export const userAPI = {
 export const userProfAPI = {
     setProfUser(userId) {
         return instance.get(`profile/${userId}`)
+    },
+    setProfileData(formData) {
+        return instance.put(`profile`, {formData})
     }
 }
 
