@@ -7,7 +7,7 @@ const NavbarForm = (props) => {
 
     return (
         <form onSubmit={props.handleSubmit} className={j.search}>
-            <Field name='newSearchFriend' component='textarea' placeholder='search your frinds' className={j.forText} />
+            <Field name='newSearchFriend' component='textarea' placeholder='search your friends' className={j.forText} />
             <button className={j.btn}>Add friend</button>
         </form>
     )

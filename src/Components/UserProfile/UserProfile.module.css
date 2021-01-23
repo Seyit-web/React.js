@@ -22,3 +22,16 @@
 .contacts {
     padding-left: 13px;
 }
+
+.ava {
+    width: 200px;
+    height: auto;
+    border-radius: 50%;
+}
+
+.someError {
+    display: inline-block;
+    border: 1px solid red;
+    color: red;
+    padding: 5px;
+}

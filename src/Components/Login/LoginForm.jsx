@@ -5,7 +5,7 @@ import { reduxForm } from 'redux-form'
 import { Input, createField } from '../Common/ForForms/ForForms';
 import { required } from '../Common/Validation/Validation';
 
-const LoginForm = ({handleSubmit, error}) => {
+const LoginForm = ({handleSubmit, error, captchaUrl}) => {
 
     return (
         <form onSubmit={handleSubmit} >
@@ -13,6 +13,9 @@ const LoginForm = ({handleSubmit, error}) => {
                 { createField('password', 'Password', Input, [required], {type: 'password'}) }
             
             { error && <div className={l.someError}>{error}</div> }
+
+            { captchaUrl && <img src={captchaUrl} alt='' /> }
+            { captchaUrl && createField('captcha', 'Write the symbols', Input, [required]) }
 
                 { createField('rememberMe', 'null', Input, [], {type: 'checkbox'}, 'remeber me') }
                 

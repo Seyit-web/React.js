@@ -9,7 +9,7 @@ import { Redirect } from 'react-router-dom';
 const Login = (props) => {
 
     const onSubmit = (formData) => {
-        props.logIn(formData.email, formData.password, formData.rememberMe);
+        props.logIn(formData.email, formData.password, formData.rememberMe, formData.captcha);
     }
 
     if (props.isAuth) {
@@ -18,14 +18,22 @@ const Login = (props) => {
 
     return (
         <div className={l.lofIntro}>
-            <h1 className={l.logTitle}>Login</h1>
-            <LoginReduxForm onSubmit={onSubmit} />
+            <div className={l.example}>
+                <h1 className={l.logTitle}>Login</h1>
+                <p>
+                        For logins, you can use this data:<br/>
+                        <b>Email: free@samuraijs.com</b><br/>
+                        <b>Password: free</b>
+                </p>
+            </div>
+                <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
         </div>
     )
 }
 
 const mapStateToProps = (state) => ({
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    captchaUrl: state.auth.captchaUrl
 })
 
 export default connect(mapStateToProps, {logIn}) (Login);

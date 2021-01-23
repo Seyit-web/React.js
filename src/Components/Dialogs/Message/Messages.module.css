@@ -1,7 +1,6 @@
 
 .messages {
     width: 100%;
-    max-width: 70%;
     height: 630px;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -26,10 +25,8 @@
     position: absolute;
     bottom: 0;
     right: 0;
+    left: 0;
     z-index: 100;
-    width: 100%;
-    height: auto;
-    max-width: 69%;
     margin: 0 auto;
     padding: 5px;
     background-color: #F0F0F0;

@@ -9,12 +9,12 @@ let initialState =  {
     ],
 
     dialogs: [
-        {id: 1, name: 'Peter'},
-        {id: 2, name: 'Ann'},
-        {id: 3, name: 'Tracy'},
-        {id: 4, name: 'Bill'},
-        {id: 5, name: 'Mark'},
-        {id: 6, name: 'Peter'}
+        // {id: 1, name: 'Peter'},
+        // {id: 2, name: 'Ann'},
+        // {id: 3, name: 'Tracy'},
+        // {id: 4, name: 'Bill'},
+        // {id: 5, name: 'Mark'},
+        // {id: 6, name: 'Peter'}
     ]
 }
 

@@ -36,3 +36,13 @@
     color: red;
     padding: 5px;
 }
+
+.example {
+    display: flex;
+}
+
+.example p {
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 200px;
+}
