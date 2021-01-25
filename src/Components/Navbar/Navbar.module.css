@@ -17,15 +17,21 @@
 }
 .navbar__settings a {
     display: block;
-    color: #000;
+    color: rgba(0, 0, 0, 0.750);
     font-weight: bold;
     margin-bottom: 10px;
 }
-.navbar__settings .active {
-    color: gold;
+
+.navbar__settings a.active {
+    color: #000;
 }
+
 .navbar__settings a:last-child {
     margin-bottom: 0;
+}
+
+.setting {
+    font-size: 20px;
 }
 
 .friends {

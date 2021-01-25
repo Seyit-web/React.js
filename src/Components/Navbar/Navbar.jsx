@@ -5,6 +5,8 @@ import j from './Navbar.module.css';
 import FContent from './FriendsContent/FContent';
 import NavHeader from './NavHeader/NavHeader';
 import { NavbarFormRedux } from './NavbarForm';
+import cn from 'classnames';
+
 
 const Navbar = (props) => {
     
@@ -21,13 +23,13 @@ const Navbar = (props) => {
 
             <div className={j.navbar__intro}>
                 <div className={j.navbar__settings}>
-                    <NavLink to="/profile" className={j.setting}>Profile</NavLink>
-                    <NavLink to="/dialogs" className={j.setting}>Message</NavLink>
-                    <NavLink to="/users" className={j.setting}>Users</NavLink>
-                    <NavLink to="/userProfile" className={j.setting}>User profile</NavLink>
-                    <NavLink to="/news" className={j.setting}>News</NavLink>
-                    <NavLink to="/music" className={j.setting}>Music</NavLink>
-                    <NavLink to="/settings" className={j.setting}>Settings</NavLink>
+                    <NavLink to="/profile" activeClassName={cn (j.active, j.setting)}>Profile</NavLink>
+                    <NavLink to="/dialogs" activeClassName={cn (j.active, j.setting)}>Message</NavLink>
+                    <NavLink to="/users" activeClassName={cn (j.active, j.setting)}>Users</NavLink>
+                    <NavLink to="/userProfile" activeClassName={cn (j.active, j.setting)}>User profile</NavLink>
+                    <NavLink to="/news" activeClassName={cn (j.active, j.setting)}>News</NavLink>
+                    <NavLink to="/music" activeClassName={cn (j.active, j.setting)}>Music</NavLink>
+                    <NavLink to="/settings" activeClassName={cn (j.active, j.setting)}>Settings</NavLink>
                 </div>
             </div>
             <div className={j.friends}>

@@ -1,11 +1,16 @@
 
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import uProf from './UserProfile.module.css';
+
 
 const UserProfileStatus = (props) => {
 
-
-    let [ editMode, setEditMode ] = useState(false);
-    let [ status, setStatus ] = useState(props.status);
+    const [editMode, setEditMode] = useState(false);
+    const [status, setStatus] = useState(props.status);
+    
+    useEffect(() => {
+        setStatus(props.status);
+    }, [props.status]);
 
     const activateEditMode = () => {
         setEditMode(true);
@@ -13,6 +18,7 @@ const UserProfileStatus = (props) => {
 
     const deActivateEditMode = () => {
         setEditMode(false);
+        props.updateUserStatus(status)
     }
 
     const onStatusChange = (e) => {
@@ -21,18 +27,27 @@ const UserProfileStatus = (props) => {
 
     return (
         <div>
+
             { !editMode &&
             <div>
-                <span onDoubleClick={activateEditMode} ><b>Hello</b></span>
+                <span onClick={ activateEditMode }><b>{props.status || 'status'}</b></span>
             </div>
             }
 
             { editMode && 
             <div>
-                <input onChange={ onStatusChange } autoFocus={true} onBlur={ deActivateEditMode } value={status} />
+                <input className={uProf.forStatus} onChange={ onStatusChange } autoFocus={true} onBlur={ deActivateEditMode } value={ status } />
             </div>
             }
+
+            {/* { 
+                editMode 
+                ? <div><input onChange={ onStatusChange } autoFocus={true} onBlur={ deActivateEditMode } value={ status } /></div> 
+                : <div><span onClick={ activateEditMode }><b>{status || "status"}</b></span></div> 
+            }  */}
+
         </div>
     )
 }
+
 export default UserProfileStatus;

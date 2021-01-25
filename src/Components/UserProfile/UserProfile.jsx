@@ -27,7 +27,7 @@ const UserProfile = (props) => {
             <div className={uProf.userPhoto}>
                 <img src={props.profile.photos.large || bg} alt=""/>
                 <div>
-                    <UserProfileStatus />
+                    <UserProfileStatus status={props.status} updateUserStatus={props.updateUserStatus} />
                 </div>
             </div>
 

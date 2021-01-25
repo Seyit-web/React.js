@@ -1,6 +1,7 @@
 
 import React, {useState} from 'react';
 import us from './Pagination.module.css';
+import cn from 'classnames'
 
 const Pagination = (props) => {
  
@@ -24,11 +25,13 @@ const Pagination = (props) => {
             {portionNumber > 1 && <button className={us.btn} onClick={ () => { setPortionNumber(portionNumber - 1) } } >PREV</button> }
 
             <div className={us.number}>
+
                 {pages.filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber).map( (p) => {
-                    return <span  onClick={ (e) => { props.onPageChanged(p); } }  key={p.toString()} >
-                            <a  className={ props.currentPage === p && us.bold }  href='#'>{p}</a>
-                        </span>
+                    return <span className={ cn ({ [us.bold]: props.currentPage === p }, us.pageNumber) } 
+                    onClick={ (e) => { props.onPageChanged(p) } }  
+                    key={p.toString()} >{p}</span>
                 })}
+                
             </div>
 
             {portionCount > portionNumber && <button className={us.btn} onClick={ () => { setPortionNumber(portionNumber + 1) } } >NEXT</button> }
