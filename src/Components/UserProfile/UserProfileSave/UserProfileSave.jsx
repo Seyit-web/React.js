@@ -9,7 +9,7 @@ const UserProfileSave = (props) => {
 
     return (
         <form onSubmit={props.handleSubmit} >
-                { <div><button>Save</button></div> }
+                { <div><button className={uProf.edit}>Save</button></div> }
 
                 { props.error && <div className={uProf.someError}>{props.error}</div> }
 

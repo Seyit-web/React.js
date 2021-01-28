@@ -21,11 +21,20 @@ const UserProfile = (props) => {
             setEditMode(false);
         })
     }
+
+    const choiceUserPhoto = (e) => {
+        if (e.target.files.length) {
+            props.saveUserPhoto(e.target.files[0]);
+        }
+    }
     
     return (
         <div className={uProf.userProfile}>
             <div className={uProf.userPhoto}>
                 <img src={props.profile.photos.large || bg} alt=""/>
+                <div>
+                    { props.isOwner && <input className={uProf.forPhoto} type={'file'} onChange={ choiceUserPhoto } /> }
+                </div>
                 <div>
                     <UserProfileStatus status={props.status} updateUserStatus={props.updateUserStatus} />
                 </div>

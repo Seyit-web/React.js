@@ -46,6 +46,19 @@ export const getProfileStatus = {
     }
 }
 
+export const getUserPhoto = {
+    updateUserPhoto(userPhoto) {
+
+        const formData = new FormData();
+        formData.append("image", userPhoto);
+        return instance.put(`profile/photo`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+              }
+        })
+    }
+}
+
 
 export const headerAPI = {
     forLogin() {

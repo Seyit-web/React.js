@@ -1,9 +1,10 @@
 
-import { userProfAPI, getProfileStatus } from '../DAL/Api';
+import { userProfAPI, getProfileStatus, getUserPhoto } from '../DAL/Api';
 import { stopSubmit } from 'redux-form';
 
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_USER_STATUS = 'SET_USER_STATUS';
+const SET_USER_PHOTOS = 'SET_USER_PHOTOS';
 
 let initialState = {
     profile: null,
@@ -20,6 +21,9 @@ const userProfileReducer = (state = initialState, action) => {
         case SET_USER_STATUS: {
             return { ...state, status: action.status }
         }
+        case SET_USER_PHOTOS: {
+            return { ...state, profile: {...state.profile, photos: action.photos} }
+        }
         
         default:
             return state;
@@ -28,6 +32,7 @@ const userProfileReducer = (state = initialState, action) => {
 
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile });
 export const setUserStatus = (status) => ({ type: SET_USER_STATUS, status });
+export const setUserPhoto = (photos) => ({ type: SET_USER_PHOTOS, photos });
 
 
 export const getUserStatus = (userId) =>{
@@ -48,6 +53,18 @@ export const updateUserStatus = (status) =>{
         }
     }
 }
+
+export const saveUserPhoto = (userPhoto) =>{
+    // It is a THUNK
+    return async (dispatch) => {
+        
+        let response = await getUserPhoto.updateUserPhoto(userPhoto);
+        if (response.data.resultCode === 0) {
+            dispatch(setUserPhoto(response.data.data.photos));            
+        }
+    }
+}
+
 
 
 export const setUser = (userId) =>{

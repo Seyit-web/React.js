@@ -8,8 +8,8 @@ import { Contact } from '../UserProfileContact/Contact';
 const UserProfileEdit = (props) => {
 
     return(
-        <form className={uProf.descr}>
-                { props.isOwner && <div><button onClick={props.activedEditMode}>Edit</button></div> }
+        <form>
+                { props.isOwner && <div><button className={uProf.edit} onClick={props.activedEditMode}>Edit</button></div> }
             <div>
                 <b>Full name</b>: {props.profile.fullName}
             </div>

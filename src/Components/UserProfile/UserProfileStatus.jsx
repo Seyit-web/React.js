@@ -30,7 +30,7 @@ const UserProfileStatus = (props) => {
 
             { !editMode &&
             <div>
-                <span onClick={ activateEditMode }><b>{props.status || 'status'}</b></span>
+                <span className={uProf.status} onClick={ activateEditMode }><b>{props.status || 'status'}</b></span>
             </div>
             }
 
