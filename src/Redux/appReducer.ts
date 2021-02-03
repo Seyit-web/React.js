@@ -1,13 +1,19 @@
 
 import { getLogin } from './authReducer';
 
+
 const SET_INITIALIZED= 'SET_INITIALIZED';
 
-let initialState = {
+
+export type InitialStateType = {
+    initialized: boolean
+}
+
+let initialState: InitialStateType = {
     initialized: false
 };
 
-const appReducer = (state = initialState, action) => {
+const appReducer = (state = initialState, action: any): InitialStateType => {
 
     switch(action.type) {
         case SET_INITIALIZED:
@@ -21,12 +27,17 @@ const appReducer = (state = initialState, action) => {
     }
 }
 
-export const setInitialized = () => ({ type: 'SET_INITIALIZED' })
+
+type SetInitializedActionType = {
+    type: typeof SET_INITIALIZED
+}
+
+export const setInitialized = (): SetInitializedActionType => ({ type: SET_INITIALIZED })
 
 
 export const initializeApp = () =>{
     // It is  THUNK
-    return (dispatch) => {
+    return (dispatch: any) => {
 
         let promise = dispatch(getLogin());
 
