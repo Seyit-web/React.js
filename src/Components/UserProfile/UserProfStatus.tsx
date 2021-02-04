@@ -1,9 +1,20 @@
 
-import React from 'react';
-import uProf from './UserProfile.module.css';
+import React from 'react'
+import uProf from './UserProfile.module.css'
 
 
-class UserProfStatus extends React.Component {
+
+type PropsType = {
+    status: string
+    updateUserStatus: (status: string) => void
+}
+
+type StateType = {
+    status: string
+    editMode: boolean 
+}
+
+class UserProfStatus extends React.Component<PropsType, StateType> {
 
     state = {
         editMode: false,
@@ -19,13 +30,13 @@ class UserProfStatus extends React.Component {
         this.props.updateUserStatus(this.state.status);
     }
     
-    onStatusChange(e) {
+    onStatusChange(e: React.FormEvent<HTMLInputElement>) {
         this.setState({
             status: e.currentTarget.value
         })
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps: PropsType, prevState: StateType) {
         if (prevProps.status !== this.props.status) {
             this.setState({
                 status: this.props.status

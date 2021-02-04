@@ -1,12 +1,20 @@
 
-import React, {useState, useEffect} from 'react';
-import uProf from './UserProfile.module.css';
+import React, {useState, useEffect, FC} from 'react'
+import uProf from './UserProfile.module.css'
 
 
-const UserProfileStatus = (props) => {
 
-    const [editMode, setEditMode] = useState(false);
-    const [status, setStatus] = useState(props.status);
+type PropsType = {
+    status: string
+
+    updateUserStatus: (status: string) => void
+}
+
+
+const UserProfileStatus: FC<PropsType> = (props) => {
+
+    const [editMode, setEditMode] = useState<boolean>(false)
+    const [status, setStatus] = useState<string>(props.status)
     
     useEffect(() => {
         setStatus(props.status);
@@ -21,7 +29,7 @@ const UserProfileStatus = (props) => {
         props.updateUserStatus(status)
     }
 
-    const onStatusChange = (e) => {
+    const onStatusChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setStatus(e.currentTarget.value);
     }
 

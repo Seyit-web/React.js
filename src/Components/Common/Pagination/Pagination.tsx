@@ -1,13 +1,23 @@
 
-import React, {useState} from 'react';
+import React, {useState, FC} from 'react';
 import us from './Pagination.module.css';
 import cn from 'classnames'
 
-const Pagination = (props) => {
+
+
+type PropsType = {
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
+    
+    onPageChanged: (pageNumber: number) => void
+}
+
+const Pagination: FC<PropsType> = (props) => {
  
     let pagesCount = Math.ceil (props.totalUsersCount / props.pageSize);
 
-    let pages = [];
+    let pages: Array<number> = [];
     for (let i=1; i <= pagesCount; i++) {
         pages.push(i);
     }

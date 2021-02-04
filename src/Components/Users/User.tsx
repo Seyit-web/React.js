@@ -1,12 +1,23 @@
 
 import userPhoto from '../Profile/Ava/img/ava.jpg'
-import React from 'react';
-import us from './Users.module.css';
-import { NavLink } from 'react-router-dom';
+import React, { FC } from 'react'
+import us from './Users.module.css'
+import { NavLink } from 'react-router-dom'
+import { UsersType } from '../../Types/types'
 
-const User = (props) => {
+
+
+type PropsType = {
+    user: UsersType
+    btnFollow: Array<number> 
     
-    let user = props.user;
+    unfollow: (userId: number) => void
+    follow: (userId: number) => void
+}
+
+const User: FC<PropsType> = (props) => {
+    
+    let user = props.user
 
     return (
         <div className={us.userIntro}>

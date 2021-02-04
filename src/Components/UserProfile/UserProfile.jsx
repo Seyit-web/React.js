@@ -1,16 +1,16 @@
 
 import React, {useState} from 'react'
-import Loader from '../Common/Loader/Loader';
-import uProf from './UserProfile.module.css';
-import bg from '../Profile/Ava/img/ava.jpg';
-import { UserProfileReduxFormEdit } from './UserProfileEdit/UserProfileEdit';
-import { UserProfileReduxFormSave } from './UserProfileSave/UserProfileSave';
-import UserProfileStatus from './UserProfileStatus';
+import Loader from '../Common/Loader/Loader'
+import uProf from './UserProfile.module.css'
+import bg from '../Profile/Ava/img/ava.jpg'
+import { UserProfileReduxFormEdit } from './UserProfileEdit/UserProfileEdit'
+import { UserProfileReduxFormSave } from './UserProfileSave/UserProfileSave'
+import UserProfileStatus from './UserProfileStatus'
 
 
 const UserProfile = (props) => {
 
-    let [ editMode, setEditMode ] = useState(false);
+    let [ editMode, setEditMode ] = useState(false)
 
     if (!props.profile) {
         return <Loader />

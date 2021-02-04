@@ -36,7 +36,7 @@ type AddPostActionType = {
     newPostText: string
 }
 
-export const addPost = (newPostText: string) => ({ 
+export const addPost = (newPostText: string): AddPostActionType => ({ 
     type: 'ADD_POST', 
     newPostText 
 })
