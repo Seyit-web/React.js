@@ -19,7 +19,7 @@ let initialState =  {
 
 export type InitialStateType = typeof initialState;
 
-const navbarReducer = (state = initialState, action: any): InitialStateType => {
+const navbarReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch(action.type) {
         case ADD_FRIEND: 
         let text = action.newSearchFriend
@@ -32,6 +32,8 @@ const navbarReducer = (state = initialState, action: any): InitialStateType => {
     }
 }
 
+
+type ActionsTypes = AddFriendActionType
 
 type AddFriendActionType = {
     type: typeof ADD_FRIEND

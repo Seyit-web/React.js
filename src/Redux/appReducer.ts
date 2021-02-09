@@ -13,7 +13,7 @@ let initialState: InitialStateType = {
     initialized: false
 };
 
-const appReducer = (state = initialState, action: any): InitialStateType => {
+const appReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 
     switch(action.type) {
         case SET_INITIALIZED:
@@ -27,6 +27,8 @@ const appReducer = (state = initialState, action: any): InitialStateType => {
     }
 }
 
+
+type ActionsTypes = SetInitializedActionType
 
 type SetInitializedActionType = {
     type: typeof SET_INITIALIZED

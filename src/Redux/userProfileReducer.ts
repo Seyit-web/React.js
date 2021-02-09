@@ -1,7 +1,11 @@
 
-import { userProfAPI, getProfileStatus, getUserPhoto } from '../DAL/Api';
+import { userProfAPI, getProfileStatus, getUserPhoto, ResultCodeEnum } from '../DAL/Api';
 import { stopSubmit } from 'redux-form';
 import { ProfileType, PhotosType } from '../Types/types'
+
+import { GlobalStateType } from './reduxStore'
+import { ThunkAction } from 'redux-thunk'
+import { Dispatch } from 'redux'
 
 
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
@@ -17,7 +21,7 @@ let initialState = {
 
 export type InitialStateType = typeof initialState;
 
-const userProfileReducer = (state = initialState, action: any): InitialStateType => {
+const userProfileReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 
     switch(action.type) {
 
@@ -37,6 +41,8 @@ const userProfileReducer = (state = initialState, action: any): InitialStateType
 }
 
 
+
+type ActionsTypes = SetUserProfileActionType | SetUserStatusActionType | SetUserPhotoActionType
 
 type SetUserProfileActionType = {
     type: typeof SET_USER_PROFILE
@@ -63,9 +69,15 @@ export const setUserPhoto = (photos: PhotosType): SetUserPhotoActionType => ({ t
 
 
 
-export const getUserStatus = (userId: number) =>{
+type DispatchType = Dispatch<ActionsTypes>
+type ThunkType = ThunkAction<Promise<void>, GlobalStateType, unknown, ActionsTypes>
+    // Здесь мы импортируем ThunkAction из redux. Внутри приходит Параметрый. Первым идет Pomise<void> который означает возаращаемое значение
+    // из нашего текущего акшена. Вторым идет GlobalStateType. Третим у нас unknown это "extraArgument" который тоже приходит
+    // к текщему Санку. Четвертым идет ActionsTypes который у нас набор всех акшен крейтеров.
+
+export const getUserStatus = (userId: number): ThunkType =>{
     // It is a THUNK
-    return async (dispatch: any) => {
+    return async (dispatch) => {
         
         let response = await getProfileStatus.getStatus(userId);
             dispatch(setUserStatus(response.data));            
@@ -73,33 +85,33 @@ export const getUserStatus = (userId: number) =>{
 }
 
 
-export const updateUserStatus = (status: string) =>{
+export const updateUserStatus = (status: string): ThunkType =>{
     // It is a THUNK
-    return async (dispatch: any) => {
+    return async (dispatch) => {
         
-        let response = await getProfileStatus.updateStatus(status);
-        if (response.data.resultCode === 0) {
+        let data = await getProfileStatus.updateStatus(status);
+        if (data.resultCode === ResultCodeEnum.Success) {
             dispatch(setUserStatus(status));            
         }
     }
 }
 
 
-export const saveUserPhoto = (userPhoto: any) =>{
+export const saveUserPhoto = (userPhoto: any): ThunkType =>{
     // It is a THUNK
-    return async (dispatch: any) => {
+    return async (dispatch) => {
         
         let response = await getUserPhoto.updateUserPhoto(userPhoto);
-        if (response.data.resultCode === 0) {
+        if (response.data.resultCode === ResultCodeEnum.Success) {
             dispatch(setUserPhoto(response.data.data.photos));            
         }
     }
 }
 
 
-export const setUser = (userId: number) =>{
+export const setUser = (userId: number): ThunkType =>{
     // It is a THUNK
-    return async (dispatch: any) => {
+    return async (dispatch) => {
         
         let response = await userProfAPI.setProfUser(userId);
         
@@ -113,8 +125,8 @@ export const profileFormDataSave = (formData: any) =>{
     return async (dispatch: any, getState: any) => {
             const userId = getState().auth.userId;
             let response = await userProfAPI.setProfileData(formData);
-
-            if (response.data.resultCode === 0) {
+            
+            if (response.data.resultCode === ResultCodeEnum.Success) {
                 dispatch(setUserProfile(userId));            
             } else {
                 dispatch(stopSubmit('editUserProfile', {_error: response.data.messages[0]}));

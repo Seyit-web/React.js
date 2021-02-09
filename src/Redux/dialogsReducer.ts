@@ -19,7 +19,7 @@ export type InitialStateActionType = typeof initialState
 
 
 
-const dialogsReducer = (state = initialState, action: any): InitialStateActionType => {
+const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStateActionType => {
 
     switch(action.type) {
         case ADD_SEND: 
@@ -33,6 +33,8 @@ const dialogsReducer = (state = initialState, action: any): InitialStateActionTy
     }
 }
 
+
+type ActionsTypes = AddSendActionType
 
 type AddSendActionType = {
     type: typeof ADD_SEND

@@ -17,7 +17,7 @@ let initialState = {
 export type InitialStateType = typeof initialState;
 
 
-const profileReducer = (state = initialState, action: any): InitialStateType => {
+const profileReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 
     switch(action.type) {
         case ADD_POST: 
@@ -30,6 +30,8 @@ const profileReducer = (state = initialState, action: any): InitialStateType => 
     }
 }
 
+
+type ActionsTypes = AddPostActionType
 
 type AddPostActionType = {
     type: typeof ADD_POST

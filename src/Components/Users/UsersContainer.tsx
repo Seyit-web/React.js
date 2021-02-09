@@ -81,4 +81,4 @@ let mapStateToProps = (state: GlobalStateType): MapStatePropsType => {
 }
 
 // TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState
-export default compose( connect(mapStateToProps, { follow, unfollow, requestUsers, getUsers2 }) ) (UsersContainer);
+export default compose( connect(mapStateToProps, { follow, unfollow, requestUsers, getUsers2 }) ) (UsersContainer)
