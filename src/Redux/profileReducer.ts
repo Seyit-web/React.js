@@ -1,5 +1,6 @@
 
-const ADD_POST = 'ADD_POST';
+import { InferActionsTypes } from './reduxStore'
+
 
 type PostsType = {
     id: number
@@ -20,7 +21,7 @@ export type InitialStateType = typeof initialState;
 const profileReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 
     switch(action.type) {
-        case ADD_POST: 
+        case 'ADD_POST': 
             return {
                 ...state,
                 posts: [{id: 5, post: action.newPostText}, ...state.posts,],
@@ -31,16 +32,13 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
 }
 
 
-type ActionsTypes = AddPostActionType
+type ActionsTypes = InferActionsTypes<typeof actions>
 
-type AddPostActionType = {
-    type: typeof ADD_POST
-    newPostText: string
+export const actions = {
+    addPost: (newPostText: string) => ({ 
+        type: 'ADD_POST', 
+        newPostText 
+    } as const)
 }
-
-export const addPost = (newPostText: string): AddPostActionType => ({ 
-    type: 'ADD_POST', 
-    newPostText 
-})
 
 export default profileReducer;

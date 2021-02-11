@@ -1,19 +1,36 @@
 
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import j from './Navbar.module.css';
-import FContent from './FriendsContent/FContent';
-import NavHeader from './NavHeader/NavHeader';
-import { NavbarFormRedux } from './NavbarForm';
-import cn from 'classnames';
+import React from 'react'
+import { NavLink } from 'react-router-dom'
+import j from './Navbar.module.css'
+import FContent from './FriendsContent/FContent'
+import NavHeader from './NavHeader/NavHeader'
+import { NavbarFormRedux } from './NavbarForm'
+import cn from 'classnames'
 
 
-const Navbar = (props) => {
+
+type FriendsElementType = {
+    id: number
+    name: string
+    status: string
+}
+
+type PropsType = {
+    friendsContent: Array<FriendsElementType>
+    addFriend: (navberText: string) => void
+}
+
+export type NavbarFormType = {
+    newSearchFriend: string
+}
+
+
+const Navbar: React.FC<PropsType> = (props) => {
     
-    let FriendsElement = props.friendsContent.map( f => <FContent name={f.name} id={f.id} status={f.status} key={f.id} /> );
+    let FriendsElement = props.friendsContent.map( f => <FContent name={f.name} id={f.id} status={f.status} key={f.id} /> )
 
-    let addNewFriend = (values) => {
-        props.addFriend(values.newSearchFriend);
+    let addNewFriend = (values: NavbarFormType) => {
+        props.addFriend(values.newSearchFriend)
     }
 
     return (
@@ -42,4 +59,4 @@ const Navbar = (props) => {
         </div>
     )
 }
-export default Navbar;
+export default Navbar

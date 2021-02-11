@@ -1,22 +1,18 @@
 
-import { getLogin } from './authReducer';
+import { getLogin } from './authReducer'
+import { InferActionsTypes } from './reduxStore'
 
 
-const SET_INITIALIZED= 'SET_INITIALIZED';
-
-
-export type InitialStateType = {
-    initialized: boolean
+let initialState = {
+    initialized: false
 }
 
-let initialState: InitialStateType = {
-    initialized: false
-};
+export type InitialStateType = typeof initialState
 
 const appReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 
     switch(action.type) {
-        case SET_INITIALIZED:
+        case 'SET_INITIALIZED':
             return {
                 ...state,
                 initialized: true
@@ -28,14 +24,11 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 }
 
 
-type ActionsTypes = SetInitializedActionType
+type ActionsTypes = InferActionsTypes<typeof actions>
 
-type SetInitializedActionType = {
-    type: typeof SET_INITIALIZED
-}
-
-export const setInitialized = (): SetInitializedActionType => ({ type: SET_INITIALIZED })
-
+export const actions = {
+    setInitialized:  () => ({ type: 'SET_INITIALIZED' } as const)
+} 
 
 export const initializeApp = () =>{
     // It is  THUNK
@@ -44,7 +37,7 @@ export const initializeApp = () =>{
         let promise = dispatch(getLogin());
 
         promise.then(() => {
-            dispatch(setInitialized())
+            dispatch(actions.setInitialized())
         })
     }
 }

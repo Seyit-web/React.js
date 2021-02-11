@@ -12,7 +12,6 @@ type PropsType = {
     captchaUrl: string | null
 }
 
-
 const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, PropsType> & PropsType> = ({handleSubmit, error, captchaUrl}) => {
 
     return (

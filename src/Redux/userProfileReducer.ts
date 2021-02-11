@@ -1,16 +1,12 @@
 
-import { userProfAPI, getProfileStatus, getUserPhoto, ResultCodeEnum } from '../DAL/Api';
-import { stopSubmit } from 'redux-form';
+import { getUserPhoto } from '../DAL/getUserPhoto'
+import { userProfAPI } from '../DAL/userProfAPI'
+import { getProfileStatus  } from '../DAL/getProfileStatus'
+import { ResultCodeEnum  } from '../DAL/headerAPI'
+import { FormAction, stopSubmit } from 'redux-form'
 import { ProfileType, PhotosType } from '../Types/types'
-
-import { GlobalStateType } from './reduxStore'
-import { ThunkAction } from 'redux-thunk'
-import { Dispatch } from 'redux'
-
-
-const SET_USER_PROFILE = 'SET_USER_PROFILE';
-const SET_USER_STATUS = 'SET_USER_STATUS';
-const SET_USER_PHOTOS = 'SET_USER_PHOTOS';
+import { BaseThunkType } from './reduxStore'
+import { InferActionsTypes } from './reduxStore'
 
 
 
@@ -25,13 +21,13 @@ const userProfileReducer = (state = initialState, action: ActionsTypes): Initial
 
     switch(action.type) {
 
-        case SET_USER_PROFILE: {
+        case 'SET_USER_PROFILE': {
             return { ...state, profile: action.profile }
         }
-        case SET_USER_STATUS: {
+        case 'SET_USER_STATUS': {
             return { ...state, status: action.status }
         }
-        case SET_USER_PHOTOS: {
+        case 'SET_USER_PHOTOS': {
             return { ...state, profile: {...state.profile, photos: action.photos} as ProfileType }
         }
         
@@ -41,36 +37,19 @@ const userProfileReducer = (state = initialState, action: ActionsTypes): Initial
 }
 
 
+type ActionsTypes = InferActionsTypes<typeof actions>
 
-type ActionsTypes = SetUserProfileActionType | SetUserStatusActionType | SetUserPhotoActionType
+export const actions = {
+    setUserProfile: (profile: ProfileType) => ({ type: 'SET_USER_PROFILE', profile } as const),
 
-type SetUserProfileActionType = {
-    type: typeof SET_USER_PROFILE
-    profile: ProfileType
+    setUserStatus: (status: string) => ({ type: 'SET_USER_STATUS', status } as const),
+
+    setUserPhoto: (photos: PhotosType) => ({ type: 'SET_USER_PHOTOS', photos } as const)
 }
-export const setUserProfile = (profile: ProfileType): SetUserProfileActionType => ({ type: SET_USER_PROFILE, profile });
 
 
-
-type SetUserStatusActionType = {
-    type: typeof  SET_USER_STATUS
-    status: string
-}
-export const setUserStatus = (status: string): SetUserStatusActionType => ({ type: SET_USER_STATUS, status });
-
-
-
-type SetUserPhotoActionType = {
-    type: typeof SET_USER_PHOTOS
-    photos: PhotosType
-}
-export const setUserPhoto = (photos: PhotosType): SetUserPhotoActionType => ({ type: SET_USER_PHOTOS, photos });
-
-
-
-
-type DispatchType = Dispatch<ActionsTypes>
-type ThunkType = ThunkAction<Promise<void>, GlobalStateType, unknown, ActionsTypes>
+type ThunkType = BaseThunkType<ActionsTypes | FormAction>
+// type ThunkType = ThunkAction<Promise<void>, GlobalStateType, unknown, ActionsTypes>
     // Здесь мы импортируем ThunkAction из redux. Внутри приходит Параметрый. Первым идет Pomise<void> который означает возаращаемое значение
     // из нашего текущего акшена. Вторым идет GlobalStateType. Третим у нас unknown это "extraArgument" который тоже приходит
     // к текщему Санку. Четвертым идет ActionsTypes который у нас набор всех акшен крейтеров.
@@ -79,8 +58,8 @@ export const getUserStatus = (userId: number): ThunkType =>{
     // It is a THUNK
     return async (dispatch) => {
         
-        let response = await getProfileStatus.getStatus(userId);
-            dispatch(setUserStatus(response.data));            
+        let data = await getProfileStatus.getStatus(userId);
+            dispatch(actions.setUserStatus(data));            
     }
 }
 
@@ -91,19 +70,19 @@ export const updateUserStatus = (status: string): ThunkType =>{
         
         let data = await getProfileStatus.updateStatus(status);
         if (data.resultCode === ResultCodeEnum.Success) {
-            dispatch(setUserStatus(status));            
+            dispatch(actions.setUserStatus(status));            
         }
     }
 }
 
 
-export const saveUserPhoto = (userPhoto: any): ThunkType =>{
+export const saveUserPhoto = (userPhoto: File): ThunkType =>{
     // It is a THUNK
     return async (dispatch) => {
         
-        let response = await getUserPhoto.updateUserPhoto(userPhoto);
-        if (response.data.resultCode === ResultCodeEnum.Success) {
-            dispatch(setUserPhoto(response.data.data.photos));            
+        let data = await getUserPhoto.updateUserPhoto(userPhoto);
+        if (data.resultCode === ResultCodeEnum.Success) {
+            dispatch(actions.setUserPhoto(data.data.photos));            
         }
     }
 }
@@ -113,24 +92,28 @@ export const setUser = (userId: number): ThunkType =>{
     // It is a THUNK
     return async (dispatch) => {
         
-        let response = await userProfAPI.setProfUser(userId);
+        let data = await userProfAPI.setProfUser(userId);
         
-            dispatch(setUserProfile(response.data));            
+            dispatch(actions.setUserProfile(data));            
     }
 }
 
 
-export const profileFormDataSave = (formData: any) =>{
+export const profileFormDataSave = (formData: ProfileType): ThunkType =>{
     // It is a THUNK
-    return async (dispatch: any, getState: any) => {
-            const userId = getState().auth.userId;
-            let response = await userProfAPI.setProfileData(formData);
+    return async (dispatch, getState) => {
+            const userId = getState().auth.id;
+            let data = await userProfAPI.setProfileData(formData);
             
-            if (response.data.resultCode === ResultCodeEnum.Success) {
-                dispatch(setUserProfile(userId));            
+            if (data.resultCode === ResultCodeEnum.Success) {
+                if (userId !== null) {
+                    dispatch(getUserStatus(userId))        
+                } else {
+                    throw new Error('userId can\'t be null')
+                }
             } else {
-                dispatch(stopSubmit('editUserProfile', {_error: response.data.messages[0]}));
-                return Promise.reject(response.data.messages[0]);
+                dispatch(stopSubmit('editUserProfile', {_error: data.messages[0]}));
+                return Promise.reject(data.messages[0])
             }
     }
 }

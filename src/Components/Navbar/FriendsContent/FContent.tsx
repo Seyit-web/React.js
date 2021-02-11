@@ -1,10 +1,17 @@
 
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import f from './FContent.module.css';
+import React from 'react'
+import { NavLink } from 'react-router-dom'
+import f from './FContent.module.css'
 import avatar from './../img/ava-2.jpg'
 
-const FContent = (props) => {
+
+type PropsType = {
+    id: number
+    name: string
+    status: string
+}
+
+const FContent: React.FC<PropsType> = (props) => {
 
     let path = '/navbar/' + props.id;
 
@@ -18,4 +25,4 @@ const FContent = (props) => {
         </div>
     )
 }
-export default FContent;
+export default FContent

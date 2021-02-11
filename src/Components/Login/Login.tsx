@@ -24,7 +24,7 @@ export type LoginFormValuesType = {
     captcha: string
 }
 export type LoginFormValuesTypeKeys  = Extract<keyof LoginFormValuesType, string>  // Получаем ключи! Это интересно. Здесь
-    // Extract означает Извлекать. То есть мы извлекаем из поученных ключей только СТРОК!
+    // Extract означает Извлекать. То есть мы извлекаем из поученных ключей только СТРОКИ!
 
 type PropsType = MapDispatchPropsType & MapStatePropsType
 

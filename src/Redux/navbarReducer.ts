@@ -1,5 +1,5 @@
 
-const ADD_FRIEND = 'ADD_FRIEND'
+import { InferActionsTypes } from './reduxStore'
 
 
 type FriendsContentType = {
@@ -21,7 +21,7 @@ export type InitialStateType = typeof initialState;
 
 const navbarReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch(action.type) {
-        case ADD_FRIEND: 
+        case 'ADD_FRIEND': 
         let text = action.newSearchFriend
             return {
                 ...state,
@@ -33,15 +33,13 @@ const navbarReducer = (state = initialState, action: ActionsTypes): InitialState
 }
 
 
-type ActionsTypes = AddFriendActionType
+type ActionsTypes = InferActionsTypes<typeof actions>
 
-type AddFriendActionType = {
-    type: typeof ADD_FRIEND
-    newSearchFriend: string
+export const actions = {
+    addFriend: (newSearchFriend: string) => ({ 
+        type: 'ADD_FRIEND', 
+        newSearchFriend 
+    } as const)
 }
-export const addFriend = (newSearchFriend: string): AddFriendActionType => ({ 
-    type: 'ADD_FRIEND', 
-    newSearchFriend 
-})
 
 export default navbarReducer;

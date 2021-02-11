@@ -1,12 +1,12 @@
 
-import React from 'react';
-import n from './NavHeader.module.css';
-import ava from './icons/pharaoh.svg';
-import * as more from 'react-icons/fi';
-import * as  plus from 'react-icons/bs';
-import { NavLink } from 'react-router-dom';
+import React from 'react'
+import n from './NavHeader.module.css'
+import ava from './icons/pharaoh.svg'
+import * as more from 'react-icons/fi'
+import * as  plus from 'react-icons/bs'
+import { NavLink } from 'react-router-dom'
 
-const NavHeader = (props) => {
+const NavHeader = () => {
 
     return (
         <div className={n.navHeader}>
@@ -33,4 +33,4 @@ const NavHeader = (props) => {
     )
 }
 
-export default NavHeader;
+export default NavHeader

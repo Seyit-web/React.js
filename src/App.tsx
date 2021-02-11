@@ -1,26 +1,34 @@
 
-import React, { Suspense } from 'react';
-import './App.css';
-import { Route } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { withRouter } from 'react-router-dom';
-import { initializeApp } from './Redux/appReducer';
-import { withSuspense } from './HOC/withSuspense';
-import { Redirect } from 'react-router-dom';
-import { Switch } from 'react-router-dom';
-import Loader from './Components/Common/Loader/Loader';
-import PageNotFound from './Components/PageNotFound/PageNotFound';
-import NavbarContainer from './Components/Navbar/NavbarContainer';
-import UsersContainer from './Components/Users/UsersContainer';
-import UserProfileContainer from './Components/UserProfile/UserProfileContainer';
-import HeaderContainer from './Components/Header/HeaderContainer';
-import Login from './Components/Login/Login';
+import React, { Suspense } from 'react'
+import './App.css'
+import { Route } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
+import { withRouter } from 'react-router-dom'
+import { initializeApp } from './Redux/appReducer'
+// import { withSuspense } from './HOC/withSuspense'
+import { Redirect } from 'react-router-dom'
+import { Switch } from 'react-router-dom'
+import Loader from './Components/Common/Loader/Loader'
+import PageNotFound from './Components/PageNotFound/PageNotFound'
+import NavbarContainer from './Components/Navbar/NavbarContainer'
+import UsersContainer from './Components/Users/UsersContainer'
+import UserProfileContainer from './Components/UserProfile/UserProfileContainer'
+import HeaderContainer from './Components/Header/HeaderContainer'
+import Dialogs from './Components/Dialogs/Dialogs'
+import Login from './Components/Login/Login'
+import { GlobalStateType } from './Redux/reduxStore'
 
-const Profile = React.lazy(() => import('./Components/Profile/Profile'));
-const Dialogs = React.lazy(() => import('./Components/Dialogs/Dialogs'));
+const Profile = React.lazy(() => import('./Components/Profile/Profile'))
+// const Dialogs = React.lazy(() => import('./Components/Dialogs/Dialogs'))
 
-class App extends React.Component {
+
+type MapPropsType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType = {
+    initializeApp: () => void
+}
+
+class App extends React.Component<MapPropsType & DispatchPropsType> {
 
     // catchAllUnhandledErrors = (promiseRejectionEvent) => {
     //     alert('Some error occured');
@@ -56,7 +64,7 @@ class App extends React.Component {
 
                         <Route path='/profile' render={ () => { return <Suspense fallback={<Loader />}><Profile /></Suspense> } } />
                         
-                        <Route path='/dialogs' render={ withSuspense(Dialogs) } />
+                        <Route path='/dialogs' render={ () => <Dialogs /> } />
         
                         <Route path='/users' render={ () => <UsersContainer /> } />
         
@@ -73,7 +81,7 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: GlobalStateType) => ({
     initialized: state.app.initialized
 })
 

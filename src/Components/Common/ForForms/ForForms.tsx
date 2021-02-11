@@ -52,8 +52,9 @@ export function createField<FormKeysType extends string>(     // Изменил 
     validate: Array<FieldValidatorRequired>, 
     props = {}, 
     text = '') {
-    return <div>
-        <Field  className={f.field} name={name} placeholder={placeholder} component={component} validate={validate} {...props} /> {text}  
-    </div>
+        return (
+            <div>
+                <Field className={f.field} name={name} placeholder={placeholder} component={component} validate={validate} {...props} /> {text}  
+            </div>
+        ) 
     }
-

@@ -72,4 +72,8 @@ let mapStateToProps = (state: GlobalStateType) => ({
     status: state.userProfilePage.status
 })
 
-export default compose(connect(mapStateToProps, {setUser, getUserStatus, profileFormDataSave, updateUserStatus, saveUserPhoto}), withRouter) (UserProfileContainer);
+export default compose<React.ComponentType>(connect(
+    mapStateToProps, 
+    {setUser, getUserStatus, profileFormDataSave, updateUserStatus, saveUserPhoto}
+    ), withRouter) (UserProfileContainer) 
+    // Если мы экспортируем без   as React.ComponentType  то  compose  не говорит именна что это такое. Поэтому приходится уточнять написав  as React.ComponentType!
