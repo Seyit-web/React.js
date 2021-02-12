@@ -5,8 +5,6 @@ import Post from './Post/Post'
 import { MyPostsReduxForm } from './MyPostsForm'
 
 
-
-
 type PostType = {
     id: number
     post: string
@@ -39,4 +37,4 @@ const MyPosts: React.FC<PropsType> = (props) => {
     );
 }
 
-export default MyPosts;
+export default MyPosts

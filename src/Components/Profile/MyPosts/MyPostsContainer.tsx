@@ -9,7 +9,7 @@ import { GlobalStateType } from '../../../Redux/reduxStore'
 
 let mapStateToProps = (state: GlobalStateType) => {
     return{
-        posts: state.profilePage.posts,
+        posts: state.profilePage.posts
     }
 }
 

@@ -59,4 +59,4 @@ const mapStateToProps = (state: GlobalStateType): MapStatePropsType => ({
     captchaUrl: state.auth.captchaUrl
 })
 
-export default connect(mapStateToProps, {logIn}) (Login);
+export default connect(mapStateToProps, {logIn}) (Login)

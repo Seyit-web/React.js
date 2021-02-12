@@ -1,9 +1,10 @@
 
-import React from 'react';
+import React from 'react'
 import loader from '../img/loader.gif'
-import l from './Loader.module.css';
+import l from './Loader.module.css'
 
-const Loader = (props) => {
+
+const Loader: React.FC = () => {
     return (
         <div className={l.loaderIntro}>
             <div className={l.loader}>
@@ -13,4 +14,4 @@ const Loader = (props) => {
     )
 }
 
-export default Loader;
+export default Loader

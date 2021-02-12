@@ -3,7 +3,14 @@ import React from 'react'
 import h from './Header.module.css'
 import { NavLink } from 'react-router-dom'
 
-const Header = (props) => {
+
+type PropsType = {
+    isAuth: boolean
+    login: string | null
+    logOut: () => void
+}
+
+const Header: React.FC<PropsType> = (props) => {
     return (
         <div className={h.header}>
             <div className="container">
@@ -17,4 +24,4 @@ const Header = (props) => {
         </div>
     );
 }
-export default Header;
+export default Header

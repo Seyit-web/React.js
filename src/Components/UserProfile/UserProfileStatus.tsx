@@ -58,4 +58,4 @@ const UserProfileStatus: FC<PropsType> = (props) => {
     )
 }
 
-export default UserProfileStatus;
+export default UserProfileStatus

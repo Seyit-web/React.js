@@ -9,7 +9,7 @@ import {
     updateUserStatus, 
     saveUserPhoto
 } from '../../Redux/userProfileReducer'
-import { withRouter } from 'react-router-dom'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { compose } from 'redux'
 import { GlobalStateType } from '../../Redux/reduxStore'
 import { ProfileType } from '../../Types/types'
@@ -19,21 +19,17 @@ import { ProfileType } from '../../Types/types'
 type PropsType = {
     profile: ProfileType | null
     status: string
-    isOwner: number
+    isOwner: boolean
     match: any
 
-    saveUserPhoto: (userPhoto: any) => void
+    saveUserPhoto: (file: File) => void
     setUser: (userId: number) => void
     getUserStatus: (userId: number) => void
-    profileFormDataSave: (formData: any) => void
+    profileFormDataSave: (profile: ProfileType) => Promise<any>
     updateUserStatus: (status: string) => void
 }
 
-type StateType = {
-
-}
-
-class UserProfileContainer extends React.Component<PropsType, StateType> {
+class UserProfileContainer extends React.Component<PropsType> {
 
     refreshComponent() {
         let userId = this.props.match.params.userId;
@@ -45,12 +41,12 @@ class UserProfileContainer extends React.Component<PropsType, StateType> {
         this.props.setUser(userId);
         this.props.getUserStatus(userId);
     }
-
+    
     componentDidMount() {
         this.refreshComponent();
     }
     
-    componentDidUpdate(prevProps: PropsType, prevState: StateType) {
+    componentDidUpdate(prevProps: PropsType) {
         if (this.props.match.params.userId !== prevProps.match.params.userId) {
             this.refreshComponent();
         }
@@ -76,4 +72,5 @@ export default compose<React.ComponentType>(connect(
     mapStateToProps, 
     {setUser, getUserStatus, profileFormDataSave, updateUserStatus, saveUserPhoto}
     ), withRouter) (UserProfileContainer) 
-    // Если мы экспортируем без   as React.ComponentType  то  compose  не говорит именна что это такое. Поэтому приходится уточнять написав  as React.ComponentType!
+    // Если мы экспортируем без   as React.ComponentType  то  compose  не говорит именна что это такое. 
+    // Поэтому приходится уточнять написав  as React.ComponentType!

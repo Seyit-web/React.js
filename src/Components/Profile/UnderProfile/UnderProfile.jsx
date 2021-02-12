@@ -1,7 +1,7 @@
 
-import React from 'react';
-import u from './UnderProfile.module.css';
-import bg from '../Ava/img/ava.jpg';
+import React from 'react'
+import u from './UnderProfile.module.css'
+import bg from '../Ava/img/ava.jpg'
 
 const UnderProfile = (props) => {
     return (
@@ -10,4 +10,4 @@ const UnderProfile = (props) => {
             </div>
     )
 }
-export default UnderProfile;
+export default UnderProfile

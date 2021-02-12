@@ -34,4 +34,4 @@ export const MessagesFormRedux = reduxForm<MessagesFormType, PropsType>({ form: 
 // Пример сокращения кода.
 // type GetStringKeys<T> = Extract<keyof T, string>
 
-// type MessagesFormTypeKeys = GetStringKeys<MessagesFormType> 
+// type MessagesFormTypeKeys = GetStringKeys<MessagesFormType>

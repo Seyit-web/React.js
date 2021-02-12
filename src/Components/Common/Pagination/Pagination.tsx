@@ -1,6 +1,6 @@
 
-import React, {useState, FC} from 'react';
-import us from './Pagination.module.css';
+import React, {useState, FC} from 'react'
+import us from './Pagination.module.css'
 import cn from 'classnames'
 
 
