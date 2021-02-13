@@ -5,8 +5,8 @@ import { APIResponseType } from './headerAPI'
 
 export const userAPI = {
 
-    async getUsersFromApi(currentPage: number, pageSize: number) {
-        const res = await instance.get<GetItemsType>(`users?page=${currentPage}&count=${pageSize}`)
+    async getUsersFromApi(page: number, pageSize: number, term: string = '', friend: null | boolean = null) {
+        const res = await instance.get<GetItemsType>(`users?page=${page}&count=${pageSize}&term=${term}` + (friend === null ? '' : `&friend=${friend}`))
         return res.data
     },
 

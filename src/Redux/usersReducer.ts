@@ -14,10 +14,14 @@ let initialState = {
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
-    btnFollow: [] as Array<number> // array of Users Id s
-};
+    btnFollow: [] as Array<number>, // array of Users Id s
+    filter: {
+        term: '',
+        friend: null as null | boolean
+    }
+}
 
-export type InitialStateType = typeof initialState;
+export type InitialStateType = typeof initialState
 
 const usersReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 
@@ -51,6 +55,10 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
         case 'BNT_FOLLOW': {
             return { ...state, btnFollow: action.isFetching ? [...state.btnFollow, action.userId] : state.btnFollow.filter(id => id !== action.userId)}
         }
+
+        case 'SET_FILTER': {
+            return { ...state, filter: action.payload }
+        }
         
         default:
             return state;
@@ -67,13 +75,15 @@ export const actions = {
 
     setUsers:  (users: Array<UsersType>) => ({ type: 'SET_USERS', users } as const),
 
-    setCurrentPage:  (currentPage: number) => ({ type: 'SET_CURRENT_PAGE', currentPage } as const),
+    setCurrentPage:  (page: number) => ({ type: 'SET_CURRENT_PAGE', currentPage: page } as const),
 
     setTotalUsersCount:  (totalCount: number) => ({ type: 'SET_TOTAL_USERS_COUNT', totalCount } as const),
 
     setToggleIsFetching:  (isFetching: boolean) => ({ type: 'TOGGLE_IS_FETCHING', isFetching } as const),
 
-    setBtnFollow:  (isFetching: boolean, userId: number) => ({ type: 'BNT_FOLLOW', isFetching, userId } as const)
+    setBtnFollow:  (isFetching: boolean, userId: number) => ({ type: 'BNT_FOLLOW', isFetching, userId } as const),
+
+    setFilter:  (filter: FilterType) => ({ type: 'SET_FILTER', payload: filter } as const)
     // С помощю as const мы говорим, воспринимай их как константу. Без этого он не схавает, не может понят.
 }
 
@@ -87,31 +97,21 @@ type ThunkType = BaseThunkType<ActionsTypes>
     // из нашего текущего акшена. Вторым идет GlobalStateType. Третим у нас unknown это "extraArgument" который тоже приходит
     // к текщему Санку. Четвертым идет ActionsTypes который у нас набор всех акшен крейтеров.
 
-export const requestUsers = (currentPage: number, pageSize: number): ThunkType =>{
+export const requestUsers = (page: number, pageSize: number, filter: FilterType): ThunkType =>{
     
     // It is  THUNK
     return async (dispatch) => {
-        dispatch(actions.setToggleIsFetching(true));
-        let data = await userAPI.getUsersFromApi(currentPage, pageSize);
+        dispatch(actions.setToggleIsFetching(true))
+        dispatch(actions.setCurrentPage(page))
 
-            dispatch(actions.setToggleIsFetching(false));
-            dispatch(actions.setUsers(data.items));            
-            dispatch(actions.setTotalUsersCount(data.totalCount));
+        dispatch(actions.setFilter(filter))
+        let data = await userAPI.getUsersFromApi(page, pageSize, filter.term, filter.friend)
+
+            dispatch(actions.setToggleIsFetching(false))
+            dispatch(actions.setUsers(data.items))   
+            dispatch(actions.setTotalUsersCount(data.totalCount))
     }
 }
-
-export const getUsers2 = (pageNumber: number, pageSize: number): ThunkType =>{
-    // It is  THUNK
-    return async (dispatch) => {
-        dispatch(actions.setCurrentPage(pageNumber));
-        dispatch(actions.setToggleIsFetching(true));
-        let data = await userAPI.getUsersFromApi(pageNumber, pageSize);
-
-        dispatch(actions.setToggleIsFetching(false));
-        dispatch(actions.setUsers(data.items)); 
-    }
-}
-
 
 
 const _followUnfollow = async (
@@ -130,14 +130,16 @@ const _followUnfollow = async (
 export const follow = (userId: number): ThunkType =>{
     // It is  THUNK
     return async (dispatch) => {
-        _followUnfollow(dispatch, userId, userAPI.follow.bind(userAPI), actions.followSuccess);
+       _followUnfollow(dispatch, userId, userAPI.follow.bind(userAPI), actions.followSuccess);
     }
 }
 export const unfollow = (userId: number): ThunkType =>{
     // It is  THUNK
     return async (dispatch) => {
-        _followUnfollow(dispatch, userId, userAPI.unfollow.bind(userAPI), actions.unfollowSuccess);
+       _followUnfollow(dispatch, userId, userAPI.unfollow.bind(userAPI), actions.unfollowSuccess);
     }
 }
 
 export default usersReducer
+
+export type FilterType = typeof initialState.filter

@@ -31,3 +31,7 @@ export const getIsFetching = (state: GlobalStateType) => {
 export const getBtnFollow = (state: GlobalStateType) => {
     return state.usersPage.btnFollow;
 }
+
+export const getUsersFilter = (state: GlobalStateType) => {
+    return state.usersPage.filter;
+}

@@ -1,7 +1,7 @@
 
 import React from 'react'
 import {connect} from 'react-redux'
-import { follow, unfollow, requestUsers, getUsers2 } from '../../Redux/usersReducer'
+import { follow, unfollow, requestUsers, FilterType } from '../../Redux/usersReducer'
 import Users from './Users'
 import { compose } from 'redux'
 import {
@@ -10,7 +10,8 @@ import {
     getTotalUsersCount,
     getCurrentPage,
     getIsFetching,
-    getBtnFollow
+    getBtnFollow,
+    getUsersFilter
 } from '../../Selectors/Selectors'
 import { UsersType } from '../../Types/types'
 import { GlobalStateType } from '../../Redux/reduxStore'
@@ -22,14 +23,14 @@ type MapStatePropsType = {
     pageSize: number
     totalUsersCount: number
     isFetching: boolean
+    filter: FilterType
 
     btnFollow: Array<number>
     users: Array<UsersType>
 }
 
 type MapDispatchPropsType = {
-    requestUsers: (currentPage: number, pageSize: number) => void
-    getUsers2: (pageNumber: number, pageSize: number) => void
+    requestUsers: (currentPage: number, pageSize: number, filter: FilterType) => void
     unfollow: (userId: number) => void
     follow: (userId: number) => void
 }
@@ -40,20 +41,27 @@ type PropsType = MapStatePropsType & MapDispatchPropsType
 class UsersContainer extends React.Component<PropsType> {    // <PropsType> <StateType>
     componentDidMount() {
         // It is  THUNK
-        let {currentPage, pageSize} = this.props;
-        this.props.requestUsers(currentPage, pageSize);
+        const {currentPage, pageSize, filter} = this.props;
+        this.props.requestUsers(currentPage, pageSize, filter);
     }
 
     onPageChanged = (pageNumber: number) => {
         // It is  THUNK
+        const {pageSize, filter} = this.props;
+        this.props.requestUsers(pageNumber, pageSize, filter);
+    }
+
+    onFilterChanged = (filter: FilterType) => {
         const {pageSize} = this.props;
-        this.props.getUsers2(pageNumber, pageSize);
+
+        this.props.requestUsers(1, pageSize, filter);
     }
 
     render() {
         return (
             <Users 
                 onPageChanged={this.onPageChanged}
+                onFilterChanged={this.onFilterChanged}
 
                 unfollow={this.props.unfollow} 
                 follow={this.props.follow} 
@@ -77,8 +85,9 @@ let mapStateToProps = (state: GlobalStateType): MapStatePropsType => {
         currentPage: getCurrentPage(state),
         isFetching: getIsFetching(state),
         btnFollow: getBtnFollow(state),
+        filter: getUsersFilter(state)
     }
 }
 
 // TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState
-export default compose( connect(mapStateToProps, { follow, unfollow, requestUsers, getUsers2 }) ) (UsersContainer)
+export default compose( connect(mapStateToProps, { follow, unfollow, requestUsers}) ) (UsersContainer)
