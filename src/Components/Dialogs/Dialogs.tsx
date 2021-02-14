@@ -1,7 +1,7 @@
 
 import React from 'react'
 import d from './Dialogs.module.css'
-import MessagesContainer from './Message/MessagesContainer'
+import { MessagesContainer } from './Message/MessagesContainer'
 
 
 type PropsType = {}

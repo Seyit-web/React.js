@@ -56,7 +56,6 @@ type ThunkType = BaseThunkType<ActionsTypes | FormAction>  // Вместо эт�
     // к текщему Санку. Четвертым идет ActionsTypes который у нас набор всех акшен крейтеров.
 
 export const getLogin = (): ThunkType =>{
-    // It is  THUNK
     return async (dispatch) => {
 
         let forLoginData = await headerAPI.forLogin();
@@ -70,8 +69,6 @@ export const getLogin = (): ThunkType =>{
 
 
 export const logIn = (email: string, password: string, rememberMe: boolean, captcha: string): ThunkType => async (dispatch) => { 
-
-    // It is  THUNK
 
     let response = await headerAPI.logIn(email, password, rememberMe, captcha);
 
@@ -97,7 +94,6 @@ export const getCaptchaUrl = (): ThunkType => async (dispatch) => {
 
 
 export const logOut = (): ThunkType =>{
-    // It is  THUNK
     return async (dispatch) => {
 
         let response = await headerAPI.logOut();
@@ -107,4 +103,4 @@ export const logOut = (): ThunkType =>{
     }
 }
 
-export default authReducer;
+export default authReducer

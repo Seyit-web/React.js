@@ -17,7 +17,7 @@ type PropsType = {
 
 const User: FC<PropsType> = (props) => {
     
-    let user = props.user
+    let {user, follow, unfollow, btnFollow} = props
 
     return (
         <div className={us.userIntro}>
@@ -26,8 +26,8 @@ const User: FC<PropsType> = (props) => {
                     <img className={us.userimg} src={ user.photos.small !=null ? user.photos.small : userPhoto } alt=""/>
                 </NavLink>
                 <div> { user.followed                              // It is  THUNK
-                        ? <button disabled={props.btnFollow.some( id => id === user.id )} className={us.btn} onClick={ () => { props.unfollow(user.id) } }>UnFollow</button> 
-                        : <button disabled={props.btnFollow.some( id => id === user.id )} className={us.btn} onClick={ () => { props.follow(user.id) } }>Follow</button>
+                        ? <button disabled={ btnFollow.some( id => id === user.id )} className={us.btn} onClick={ () => { unfollow(user.id) } }>UnFollow</button> 
+                        : <button disabled={ btnFollow.some( id => id === user.id )} className={us.btn} onClick={ () => { follow(user.id) } }>Follow</button>
                     }
                 </div>
             </div>

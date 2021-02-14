@@ -2,20 +2,11 @@
 import React from 'react'
 import l from './Login.module.css'
 import { LoginReduxForm } from './LoginForm'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { logIn } from '../../Redux/authReducer'
 import { Redirect } from 'react-router-dom'
 import { GlobalStateType } from '../../Redux/reduxStore'
 
-
-
-type MapStatePropsType = {
-    isAuth: boolean
-    captchaUrl: string | null
-}
-type MapDispatchPropsType = {
-    logIn: (email: string, password: string, rememberMe: boolean, captcha: string) => void
-}
 
 export type LoginFormValuesType = {
     email: string
@@ -26,19 +17,25 @@ export type LoginFormValuesType = {
 export type LoginFormValuesTypeKeys  = Extract<keyof LoginFormValuesType, string>  // Получаем ключи! Это интересно. Здесь
     // Extract означает Извлекать. То есть мы извлекаем из поученных ключей только СТРОКИ!
 
-type PropsType = MapDispatchPropsType & MapStatePropsType
+type PropsType = {}
 
 
-const Login: React.FC<PropsType> = (props) => {
+export const Login: React.FC<PropsType> = () => {
+
+    const isAuth = useSelector((state: GlobalStateType) => state.auth.isAuth)
+    const captchaUrl = useSelector((state: GlobalStateType) => state.auth.captchaUrl)
+
+    const dispatch = useDispatch()    
 
     const onSubmit = (formData: LoginFormValuesType) => {
-        props.logIn(formData.email, formData.password, formData.rememberMe, formData.captcha);
+        dispatch(logIn(formData.email, formData.password, formData.rememberMe, formData.captcha))
     }
 
-    if (props.isAuth) {
+    if (isAuth) {
         return <Redirect to={'/profile'} />
     }
-
+    
+    
     return (
         <div className={l.lofIntro}>
             <div className={l.example}>
@@ -49,14 +46,7 @@ const Login: React.FC<PropsType> = (props) => {
                         <b>Password: free</b>
                 </p>
             </div>
-                <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
+                <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
         </div>
     )
 }
-
-const mapStateToProps = (state: GlobalStateType): MapStatePropsType => ({
-    isAuth: state.auth.isAuth,
-    captchaUrl: state.auth.captchaUrl
-})
-
-export default connect(mapStateToProps, {logIn}) (Login)

@@ -12,11 +12,11 @@ import { Switch } from 'react-router-dom'
 import Loader from './Components/Common/Loader/Loader'
 import PageNotFound from './Components/PageNotFound/PageNotFound'
 import NavbarContainer from './Components/Navbar/NavbarContainer'
-import UsersContainer from './Components/Users/UsersContainer'
+import { UsersPage } from './Components/Users/UsersPage'
 import UserProfileContainer from './Components/UserProfile/UserProfileContainer'
 import HeaderContainer from './Components/Header/HeaderContainer'
 import Dialogs from './Components/Dialogs/Dialogs'
-import Login from './Components/Login/Login'
+import { Login } from './Components/Login/Login'
 import { GlobalStateType } from './Redux/reduxStore'
 
 const Profile = React.lazy(() => import('./Components/Profile/Profile'))
@@ -66,7 +66,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                         
                         <Route path='/dialogs' render={ () => <Dialogs /> } />
         
-                        <Route path='/users' render={ () => <UsersContainer /> } />
+                        <Route path='/users' render={ () => <UsersPage /> } />
         
                         <Route path='/userProfile/:userId?' render={ () => <UserProfileContainer /> } />
                         

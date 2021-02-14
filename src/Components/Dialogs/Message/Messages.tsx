@@ -5,6 +5,8 @@ import Sms from './Sms/Sms'
 import btnClip from './icons/paperclip.svg'
 import btnSmile from './icons/smile.svg'
 import { MessagesFormRedux } from './MessagesForm'
+import { actions } from '../../../Redux/dialogsReducer'
+import { useDispatch } from 'react-redux'
 
 
 type Sms = {
@@ -14,19 +16,22 @@ type Sms = {
 
 type PropsType = {
     messages: Array<Sms>
-    addSend: (messageText: string) => void
 }
 
 export type MessagesFormType = {
     newMessageText: string
 }
 
+const addSend = actions.addSend
+
 const Messages: React.FC<PropsType> = (props) => {    
+
+    const dispatch = useDispatch()
 
     let messagesElement = props.messages.map( m =>  <Sms sms={m.sms} key={m.id} /> )
     
     let addNewSend = (values: MessagesFormType) => {
-        props.addSend(values.newMessageText)
+        dispatch(addSend(values.newMessageText))
     }
 
     return (

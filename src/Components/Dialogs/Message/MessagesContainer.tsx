@@ -1,16 +1,19 @@
 
-import { actions } from '../../../Redux/dialogsReducer'
 import Messages from './Messages'
-import {connect} from 'react-redux'
-import { compose } from 'redux'
-// import { withRedirectComponent } from '../../../HOC/withRedirectComponent'
+import { useSelector } from 'react-redux'
 import { GlobalStateType } from '../../../Redux/reduxStore'
+import React from 'react'
 
 
-let mapStateToProps = (state: GlobalStateType) => {
-    return {
-        messages: state.dialogsPage.messages
-    }
+type PropsType = {}
+
+export const MessagesContainer: React.FC<PropsType> = () => {
+
+    const messages = useSelector((state: GlobalStateType) => state.dialogsPage.messages)
+    
+    return (
+        <Messages messages={messages} />            
+    )   
 }
 
-export default compose( connect(mapStateToProps, { ...actions }) ) (Messages)
+// export default compose( connect(mapStateToProps, { ...actions }) ) (Messages)
