@@ -1,7 +1,8 @@
 
 import React from 'react'
 import h from './Header.module.css'
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { Button } from 'antd'
 
 
 type PropsType = {
@@ -15,10 +16,12 @@ const Header: React.FC<PropsType> = (props) => {
         <div className={h.header}>
             <div className="container">
                 <div className={h.headerIntro}>
-                    ShWhatsApp
+                    .sx01
                 </div>
                 <div className={h.loginBlock}>
-                    { props.isAuth ? <div>{props.login}  <button className={h.btn} onClick={props.logOut}>Log out</button></div> :  <NavLink to='/login' >Login</NavLink> }
+                    { props.isAuth 
+                    ? <div>{props.login}  <button className={h.btn} onClick={props.logOut}>Log out</button></div> 
+                    :  <Link to='/login' ><button className={h.btn}>Log in</button></Link> }
                 </div>
             </div>
         </div>

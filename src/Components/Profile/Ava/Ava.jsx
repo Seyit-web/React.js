@@ -3,12 +3,8 @@ import React from 'react';
 
 const Ava = () => {
     return (
-        <div>
-            <p>Seitkhan</p>
-            <p>Balikbaev</p>
-            <p>20.07.1995</p>
-        </div>
+        <div></div>
     )
 }
 
-export default Ava;
+export default Ava

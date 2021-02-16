@@ -15,6 +15,7 @@
     border-radius: 100px;
     color: #2B2A2C;
     transition: border .5s;
+    transition: color .3s;
     cursor: pointer;
 }
 
@@ -24,6 +25,7 @@
 
 .btn:hover {
     border-color: aqua;
+    color: aqua;
 }
 
 .number span {
@@ -37,7 +39,8 @@
 .bold {
     font-weight: bold;
     font-size: 20px;
-    background-color: aqua;
+    color: aqua;
+    border-color: aqua;
 }
 
 .pageNumber:hover:not(.bold) {

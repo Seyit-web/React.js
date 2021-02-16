@@ -1,5 +1,6 @@
 
 import React from 'react'
+
 import loader from '../img/loader.gif'
 import l from './Loader.module.css'
 

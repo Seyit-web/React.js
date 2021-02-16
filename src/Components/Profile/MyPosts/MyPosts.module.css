@@ -50,8 +50,3 @@
     color: #2B2A2C;
     margin-left: auto;
 }
-
-.btn:focus {
-    border-color: aqua;
-    outline: none;
-}

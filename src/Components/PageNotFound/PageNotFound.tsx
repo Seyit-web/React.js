@@ -10,4 +10,4 @@ const PageNotFound: React.FC = () => {
     )
 }
 
-export default PageNotFound;
+export default PageNotFound

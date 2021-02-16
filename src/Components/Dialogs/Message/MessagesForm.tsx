@@ -2,10 +2,8 @@
 import React from 'react'
 import d from './Messages.module.css'
 import btnSend from './icons/send-button.svg'
-import { InjectedFormProps, reduxForm } from 'redux-form'
-import { Textarea, createField } from '../../Common/ForForms/ForForms'
+import { Field, InjectedFormProps, reduxForm } from 'redux-form'
 import { MessagesFormType } from './Messages'
-import { required } from '../../Common/Validation/Validation'
 
 
 type PropsType = {}
@@ -18,9 +16,8 @@ const MessagesForm: React.FC<InjectedFormProps<MessagesFormType, PropsType> & Pr
     return (    
         <form onSubmit={props.handleSubmit} className={d.textarea}>
 
-                { createField<MessagesFormTypeKeys>('newMessageText', 'Type a message', Textarea, [required]) }
+            <Field name='newMessageText' component='textarea' placeholder="Type a message" className={d.forSend} />
             
-            {/* <Field name='newMessageText' component='textarea' placeholder="Type a message" className={d.forSend} /> */}
             <button className={d.btn}>
                 <img width={20} src={btnSend} alt=""/>
             </button>

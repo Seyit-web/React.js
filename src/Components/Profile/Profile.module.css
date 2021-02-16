@@ -1,16 +1,10 @@
 .profile {
     display: block;
     width: 100%;
-    max-width: 840px;
     height: 100%;
     max-height: 630px;
-    max-width: 70%;
     overflow-x: hidden;
     overflow-y: scroll;
-    background-image: url('./img/mainBg.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
 }
 
 .profile::-webkit-scrollbar {

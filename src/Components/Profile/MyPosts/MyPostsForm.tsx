@@ -5,6 +5,7 @@ import { Field, reduxForm, InjectedFormProps } from 'redux-form'
 import { createField, Textarea } from '../../Common/ForForms/ForForms'
 import { required } from '../../Common/Validation/Validation'
 import { MyPostFormType } from './MyPosts'
+import { Button } from 'antd'
 
 
 type PropsType = {}
@@ -19,8 +20,7 @@ const MyPostsForm: React.FC<InjectedFormProps<MyPostFormType, PropsType> & Props
 
             { createField<MyPostFormTypeKeys>('newPostText', 'Type a post', Textarea, [required]) }
             
-            {/* <Field className={m.forText} placeholder='Type a post' name="newPostText" component='textarea' /> */}
-            <button className={m.btn}>Add post</button>
+            <Button className={m.btn}>Add post</Button>
         </form>
     )
 }

@@ -4,6 +4,7 @@ import React, { FC } from 'react'
 import us from './Users.module.css'
 import { NavLink } from 'react-router-dom'
 import { UsersType } from '../../Types/types'
+import { Button } from 'antd'
 
 
 
@@ -26,8 +27,8 @@ const User: FC<PropsType> = (props) => {
                     <img className={us.userimg} src={ user.photos.small !=null ? user.photos.small : userPhoto } alt=""/>
                 </NavLink>
                 <div> { user.followed                              // It is  THUNK
-                        ? <button disabled={ btnFollow.some( id => id === user.id )} className={us.btn} onClick={ () => { unfollow(user.id) } }>UnFollow</button> 
-                        : <button disabled={ btnFollow.some( id => id === user.id )} className={us.btn} onClick={ () => { follow(user.id) } }>Follow</button>
+                        ? <Button disabled={ btnFollow.some( id => id === user.id )} className={us.btn} onClick={ () => { unfollow(user.id) } }>UnFollow</Button> 
+                        : <Button disabled={ btnFollow.some( id => id === user.id )} className={us.btn} onClick={ () => { follow(user.id) } }>Follow</Button>
                     }
                 </div>
             </div>

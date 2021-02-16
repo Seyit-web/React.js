@@ -15,5 +15,3 @@ export const MessagesContainer: React.FC<PropsType> = () => {
         <Messages messages={messages} />            
     )   
 }
-
-// export default compose( connect(mapStateToProps, { ...actions }) ) (Messages)
