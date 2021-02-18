@@ -12,7 +12,8 @@ import {
   TeamOutlined,
   UserOutlined,
   ProfileOutlined,
-  LineChartOutlined  
+  LineChartOutlined,
+  MessageOutlined
 } from '@ant-design/icons'
 
 
@@ -61,11 +62,15 @@ export const ForMenu = () => {
 
         </SubMenu>
 
-        <Menu.Item key="9" icon={<LineChartOutlined />}>
+        <Menu.Item key="9" icon={<MessageOutlined />}>
+                <Link to="/chat" >Chat</Link>
+        </Menu.Item>
+
+        <Menu.Item key="10" icon={<LineChartOutlined />}>
                 <Link to="/news" >News</Link>
         </Menu.Item>
 
-        <Menu.Item key="10" icon={<SettingOutlined />}>
+        <Menu.Item key="11" icon={<SettingOutlined />}>
                 <Link to="/Settings" >Settings</Link>
         </Menu.Item>
 

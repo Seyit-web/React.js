@@ -25,6 +25,7 @@ const { Content } = Layout
 
 
 const Profile = React.lazy(() => import('./Components/Profile/Profile'))
+const ChatPage = React.lazy(() => import('./Components/Chat/ChatPage'))
 
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
@@ -65,6 +66,8 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                                     <Route path='/dialogs' render={ () => <Dialogs /> } />
 
                                     <Route path='/users' render={ () => <UsersPage /> } />
+
+                                    <Route path='/chat' render={ () => { return <Suspense fallback={<Loader />}><ChatPage /></Suspense> } } />
 
                                     <Route path='/userProfile/:userId?' render={ () => <UserProfileContainer /> } />
                                 
