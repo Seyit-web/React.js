@@ -1,13 +1,13 @@
 
 import React from 'react'   
-import { ChatMessageType } from '../../../../DAL/ChatAPI'
+import { ChatMessageAPIType } from '../../../../DAL/ChatAPI'
 
 
 type PropsType = {
-    message: ChatMessageType
+    message: ChatMessageAPIType
 }
 
-export const Message: React.FC<PropsType> = ({message}) => {
+export const Message: React.FC<PropsType> = React.memo( ({message}) => {
     
     return (
         <div style={{ height: '100px' }}>
@@ -17,4 +17,4 @@ export const Message: React.FC<PropsType> = ({message}) => {
             <hr/>   
         </div>
     )
-}
+} )
