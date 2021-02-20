@@ -1,6 +1,6 @@
 
 import React from 'react'   
-import { ChatMessageType } from '../../ChatPage'
+import { ChatMessageType } from '../../../../DAL/ChatAPI'
 
 
 type PropsType = {

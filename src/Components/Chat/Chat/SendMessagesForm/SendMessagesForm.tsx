@@ -4,37 +4,27 @@ import s from './SendMessagesForm.module.css'
 import send from './icons/send-button.svg'
 import btnClip from './icons/paperclip.svg'
 import btnSmile from './icons/smile.svg'
+import { useDispatch, useSelector } from 'react-redux'
+import { sendMessage } from '../../../../Redux/chatReducer'
+import { GlobalStateType } from '../../../../Redux/reduxStore'
 
 
-type PropsType = {
-    ws: WebSocket | null
-}
+type PropsType = {}
 
-export const SendMessagesForm: React.FC<PropsType> = (props) => {
+export const SendMessagesForm: React.FC<PropsType> = () => {
 
     const [message, setMessage] = useState('')    
-    const [readyStatus, setReadyStatus] = useState<'pending' | 'ready'>('pending')    
+    const status = useSelector((state: GlobalStateType) => state.chat.status)
+
+    const dispatch = useDispatch()
 
 
-    useEffect( () => {
-
-        const openHandler = () => {
-            setReadyStatus('ready')
-        }
-        
-        props.ws?.addEventListener('open', openHandler)
-        
-        return () => {
-            props.ws?.removeEventListener('open', openHandler)
-        }
-    }, [props.ws])
-
-    const sendMessage = () => {
+    const sendMessageHandler = () => {
         if (!message) {
             return
         }
 
-        props.ws?.send(message)
+        dispatch(sendMessage(message))
         setMessage('')
     }
     
@@ -50,7 +40,7 @@ export const SendMessagesForm: React.FC<PropsType> = (props) => {
                 <textarea onChange={ (e) => setMessage(e.currentTarget.value) } value={message} placeholder='Type a message' className={s.forSend}></textarea>
             </div>
             <div>
-                <button disabled={props.ws === null || readyStatus !== 'ready'} onClick={ sendMessage } className={s.btn}>
+                <button disabled={ status !== 'ready' } onClick={ sendMessageHandler } className={s.btn}>
                     <img width={20} src={send} alt=""/>
                 </button>
             </div>

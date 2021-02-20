@@ -1,36 +1,26 @@
 
-import React, { useEffect, useState }  from 'react'   
-import { ChatMessageType } from '../../ChatPage'
+import React, { useEffect, useRef } from 'react'   
+import { useSelector } from 'react-redux'
+import { GlobalStateType } from '../../../../Redux/reduxStore'
 import { Message } from './Message'
 
 
-type PropsType = {
-    ws: WebSocket | null
-}
+type PropsType = {}
 
-export const Messages: React.FC<PropsType> = (props) => {
+export const Messages: React.FC<PropsType> = () => {
 
-    const [messages, setmessages] = useState<ChatMessageType[]>([])
-
+    const messagesAnchorRef = useRef<HTMLDivElement>(null)
+    const messages = useSelector((state: GlobalStateType) => state.chat.messages)
 
     useEffect(() => {
-
-        const messageHandler = (e: MessageEvent) => {
-            const newMessages = JSON.parse(e.data)
-            setmessages((prevMessage) => [...prevMessage, ...newMessages])
-        }
-
-        
-        props.ws?.addEventListener('message', messageHandler)
-
-        return  () => {
-            props.ws?.removeEventListener('message', messageHandler)
-        }
-    }, [props.ws])
+        messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'})
+    }, [messages])
+    
     
     return (
         <div style={{height: '500px', overflowY: 'auto'}}>
             { messages.map((m, index) => <Message key={index} message={m} />)}
+            <div ref={messagesAnchorRef}></div>
         </div>
     )
 }

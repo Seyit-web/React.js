@@ -1,5 +1,9 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { startMessagesListening, stopMessagesListening } from '../../../Redux/chatReducer'
+import { GlobalStateType } from '../../../Redux/reduxStore'
+import Loader from '../../Common/Loader/Loader'
 import { Messages } from './Messages/Messages'
 import { SendMessagesForm } from './SendMessagesForm/SendMessagesForm'
 
@@ -8,40 +12,25 @@ type PropsType = {}
 
 export const Chat: React.FC<PropsType> = () => {
 
-    const [ws, setWs] = useState<WebSocket | null>(null)
+    const dispatch = useDispatch()
+    const status = useSelector((state: GlobalStateType) => state.chat.status)
+    
 
-
-    useEffect( () => {
-        let websocet: WebSocket
-
-        const closeHandler =  () => {
-            console.log('close ws')                
-            setTimeout(createChannel, 3000)
-        }
-        
-        function createChannel() {
-            websocet?.removeEventListener('close', closeHandler)
-            websocet?.close()
-
-            websocet = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
-            websocet.addEventListener('close', closeHandler)
-            setWs(websocet)
-        }
-
-        createChannel()
-
+    useEffect(() => {
+        dispatch(startMessagesListening())
         return () => {
-            websocet.removeEventListener('close', closeHandler)
-            websocet.close()
+            dispatch(stopMessagesListening())
         }
-        
     }, [])
     
 
     return (
-        <>
-            <Messages ws={ws} />
-            <SendMessagesForm ws={ws} />
-        </>
+        <div>
+            {status === 'error' && <Loader /> }            
+                <>
+                    <Messages />
+                    <SendMessagesForm />
+                </>
+        </div>
     )
 }
